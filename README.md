@@ -25,3 +25,43 @@ available to Blueprint and Jay as well as other applications.
 
 Check the [milestones](https://github.com/blue-jay/blueprint/milestones) for
 project status.
+
+3Points:
+Functionality:
+    1- Entry
+        a. Parameters(1- Green: the purpose solved, 2- Yellow: it was hard, but purpose still solved and will avoid in future, 3- Red: purpose did not solve)
+        b. End users(*, the user has to be registered with the system)
+        Comments: 60 words
+        c. Action: ok, cancel
+    2-Search
+        a. Parameters(1 - , 2 - , 3- )
+        b. List
+        c. Action: Assign 3points OR Use it
+    3-Register
+        a. End User
+    4-Business development
+        a. Advertisement
+
+IT:
+    1- Development
+        a. coding
+            - Client
+            - Server
+        b. Logo design 
+        c. UI design
+        d. DB design
+        e. App and DB hosting
+        f. check scalability
+    2- legal registration and advise (liability)
+    3- domain name registration
+    4- website hosting
+    5- patent checks
+    
+    
+Mappings:
+"Available on GitHub" : "Copyright"
+"Blueprint": "3Points"
+"Home": "Description"
+
+
+

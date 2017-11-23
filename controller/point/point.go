@@ -1,5 +1,5 @@
-// Package notepad provides a simple CRUD application in a web page.
-package notepad
+// Package point provides a simple CRUD application in a web page.
+package point
 
 import (
 	"net/http"
@@ -13,7 +13,7 @@ import (
 )
 
 var (
-	uri = "/notepad"
+	uri = "/point"
 )
 
 // Load the routes.

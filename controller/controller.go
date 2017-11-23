@@ -6,7 +6,7 @@ import (
 	"github.com/blue-jay/blueprint/controller/debug"
 	"github.com/blue-jay/blueprint/controller/home"
 	"github.com/blue-jay/blueprint/controller/login"
-	"github.com/blue-jay/blueprint/controller/notepad"
+	"github.com/blue-jay/blueprint/controller/point"
 	"github.com/blue-jay/blueprint/controller/register"
 	"github.com/blue-jay/blueprint/controller/static"
 	"github.com/blue-jay/blueprint/controller/status"
@@ -21,5 +21,5 @@ func LoadRoutes() {
 	home.Load()
 	static.Load()
 	status.Load()
-	notepad.Load()
+	point.Load()
 }
