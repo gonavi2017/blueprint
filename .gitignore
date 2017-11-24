@@ -9,7 +9,7 @@ thumbs.db
 !/filestorage/README.md
 
 # Blue Jay Files
-env.json
+#env.json
 *.exe
 *.exe~
 blueprint
