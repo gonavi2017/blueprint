@@ -5,7 +5,7 @@ package acl
 import (
 	"net/http"
 
-	"github.com/blue-jay/blueprint/lib/flight"
+	"github.com/gonavi2017/blueprint/lib/flight"
 )
 
 // DisallowAuth does not allow authenticated users to access the page.

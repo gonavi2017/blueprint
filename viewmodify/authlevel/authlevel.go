@@ -4,8 +4,8 @@ package authlevel
 import (
 	"net/http"
 
-	"github.com/blue-jay/blueprint/lib/flight"
 	"github.com/blue-jay/core/view"
+	"github.com/gonavi2017/blueprint/lib/flight"
 )
 
 // Modify sets AuthLevel in the template to auth if the user is authenticated.

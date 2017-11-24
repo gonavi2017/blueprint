@@ -2,14 +2,14 @@
 package controller
 
 import (
-	"github.com/blue-jay/blueprint/controller/about"
-	"github.com/blue-jay/blueprint/controller/debug"
-	"github.com/blue-jay/blueprint/controller/home"
-	"github.com/blue-jay/blueprint/controller/login"
-	"github.com/blue-jay/blueprint/controller/point"
-	"github.com/blue-jay/blueprint/controller/register"
-	"github.com/blue-jay/blueprint/controller/static"
-	"github.com/blue-jay/blueprint/controller/status"
+	"github.com/gonavi2017/blueprint/controller/about"
+	"github.com/gonavi2017/blueprint/controller/debug"
+	"github.com/gonavi2017/blueprint/controller/home"
+	"github.com/gonavi2017/blueprint/controller/login"
+	"github.com/gonavi2017/blueprint/controller/point"
+	"github.com/gonavi2017/blueprint/controller/register"
+	"github.com/gonavi2017/blueprint/controller/static"
+	"github.com/gonavi2017/blueprint/controller/status"
 )
 
 // LoadRoutes loads the routes for each of the controllers.

@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/blue-jay/blueprint/lib/flight"
+	"github.com/gonavi2017/blueprint/lib/flight"
 
 	flashlib "github.com/blue-jay/core/flash"
 	"github.com/blue-jay/core/view"
