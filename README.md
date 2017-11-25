@@ -65,3 +65,9 @@ Mappings:
 
 
 Team: KS,NS
+
+Main Screen Design
+0) name - text
+1) Category - text
+2) Rating -  R,Y,G
+3) Comment - text
