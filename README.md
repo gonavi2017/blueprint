@@ -64,6 +64,4 @@ Mappings:
 "Home": "Description"
 
 
-Team:
-KS
-NS
+Team: KS,NS
