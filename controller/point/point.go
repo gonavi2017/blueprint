@@ -88,6 +88,9 @@ func Store(w http.ResponseWriter, r *http.Request) {
 func Show(w http.ResponseWriter, r *http.Request) {
 	c := flight.Context(w, r)
 
+	// Create a pagination instance with a max of 10 results.
+	p := pagination.New(r, 10)
+
 	item, _, err := note.ByID(c.DB, c.Param("id"), c.UserID)
 	if err != nil {
 		c.FlashErrorGeneric(err)
@@ -95,9 +98,19 @@ func Show(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	items, _, err := note.ByUserIDPaginate(c.DB, c.UserID, p.PerPage, p.Offset)
+	if err != nil {
+		c.FlashErrorGeneric(err)
+		items = []note.Item{}
+	}
+
 	v := c.View.New("note/show")
 	v.Vars["item"] = item
+
+	v.Vars["items"] = items
+	v.Vars["pagination"] = p
 	v.Render(w, r)
+
 }
 
 // Edit displays the edit form.
