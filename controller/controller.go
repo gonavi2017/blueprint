@@ -3,10 +3,11 @@ package controller
 
 import (
 	"github.com/gonavi2017/blueprint/controller/about"
+	"github.com/gonavi2017/blueprint/controller/comment"
 	"github.com/gonavi2017/blueprint/controller/debug"
 	"github.com/gonavi2017/blueprint/controller/home"
 	"github.com/gonavi2017/blueprint/controller/login"
-	"github.com/gonavi2017/blueprint/controller/point"
+	"github.com/gonavi2017/blueprint/controller/note"
 	"github.com/gonavi2017/blueprint/controller/register"
 	"github.com/gonavi2017/blueprint/controller/static"
 	"github.com/gonavi2017/blueprint/controller/status"
@@ -21,5 +22,6 @@ func LoadRoutes() {
 	home.Load()
 	static.Load()
 	status.Load()
-	point.Load()
+	comment.Load()
+	note.Load()
 }

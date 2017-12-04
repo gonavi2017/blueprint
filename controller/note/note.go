@@ -1,5 +1,5 @@
-// Package point provides a simple CRUD application in a web page.
-package point
+// Package note provides a simple CRUD application in a web page.
+package note
 
 import (
 	"net/http"
@@ -13,7 +13,7 @@ import (
 )
 
 var (
-	uri = "/point"
+	uri = "/note"
 )
 
 // Load the routes.

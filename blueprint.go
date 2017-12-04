@@ -1,4 +1,4 @@
-// Package main is the entry point for the web application.
+// Package main is the entry note for the web application.
 package main
 
 import (

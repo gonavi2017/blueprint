@@ -2,6 +2,7 @@
 /vendor/
 /node_modules/
 /filestorage/*
+debug
 
 # OS Files
 .DS_Store

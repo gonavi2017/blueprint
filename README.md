@@ -26,7 +26,7 @@ available to Blueprint and Jay as well as other applications.
 Check the [milestones](https://github.com/blue-jay/blueprint/milestones) for
 project status.
 
-3Points:
+Note:
 Functionality:
     1- Entry
         a. Parameters(1- Green: the purpose solved, 2- Yellow: it was hard, but purpose still solved and will avoid in future, 3- Red: purpose did not solve)
@@ -36,7 +36,7 @@ Functionality:
     2-Search
         a. Parameters(1 - , 2 - , 3- )
         b. List
-        c. Action: Assign 3points OR Use it
+        c. Action: Assign Note OR Use it
     3-Register
         a. End User
     4-Business development
@@ -56,11 +56,12 @@ IT:
     3- domain name registration
     4- website hosting
     5- patent checks
+    6- debugging (go get github.com/derekparker/delve/cmd/dlv & xcode-select --install)
     
     
 Mappings:
 "Available on GitHub" : "Copyright"
-"Blueprint": "3Points"
+"Blueprint": "Note"
 "Home": "Description"
 
 
