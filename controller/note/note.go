@@ -6,6 +6,7 @@ import (
 
 	"github.com/gonavi2017/blueprint/lib/flight"
 	"github.com/gonavi2017/blueprint/middleware/acl"
+	"github.com/gonavi2017/blueprint/model/comment"
 	"github.com/gonavi2017/blueprint/model/note"
 
 	"github.com/blue-jay/core/pagination"
@@ -104,11 +105,18 @@ func Show(w http.ResponseWriter, r *http.Request) {
 		items = []note.Item{}
 	}
 
+	comments, _, err := comment.ByNoteIDPaginate(c.DB, c.Param("id"), p.PerPage, p.Offset)
+	if err != nil {
+		c.FlashErrorGeneric(err)
+		comments = []comment.Item{}
+	}
+
 	v := c.View.New("note/show")
 	v.Vars["item"] = item
 
 	v.Vars["items"] = items
 	v.Vars["pagination"] = p
+	v.Vars["comments"] = comments
 	v.Render(w, r)
 
 }

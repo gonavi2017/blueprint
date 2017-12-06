@@ -32,108 +32,108 @@ type Connection interface {
 }
 
 // ByID gets an item by ID.
-func ByID(db Connection, ID string, userID string) (Item, bool, error) {
+func ByID(db Connection, ID string, noteID string) (Item, bool, error) {
 	result := Item{}
 	err := db.Get(&result, fmt.Sprintf(`
 		SELECT id, name, user_id, created_at, updated_at, deleted_at
 		FROM %v
 		WHERE id = ?
-			AND user_id = ?
+			AND note_id = ?
 			AND deleted_at IS NULL
 		LIMIT 1
 		`, table),
-		ID, userID)
+		ID, noteID)
 	return result, err == sql.ErrNoRows, err
 }
 
-// ByUserID gets all items for a user.
-func ByUserID(db Connection, userID string) ([]Item, bool, error) {
+// ByNoteID gets all items for a note.
+func ByNoteID(db Connection, noteID string) ([]Item, bool, error) {
 	var result []Item
 	err := db.Select(&result, fmt.Sprintf(`
 		SELECT id, name, user_id, created_at, updated_at, deleted_at
 		FROM %v
-		WHERE user_id = ?
+		WHERE note_id = ?
 			AND deleted_at IS NULL
 		`, table),
-		userID)
+		noteID)
 	return result, err == sql.ErrNoRows, err
 }
 
-// ByUserIDPaginate gets items for a user based on page and max variables.
-func ByUserIDPaginate(db Connection, userID string, max int, page int) ([]Item, bool, error) {
+// ByNoteIDPaginate gets items for a user based on page and max variables.
+func ByNoteIDPaginate(db Connection, noteID string, max int, page int) ([]Item, bool, error) {
 	var result []Item
 	err := db.Select(&result, fmt.Sprintf(`
 		SELECT id, name, user_id, created_at, updated_at, deleted_at
 		FROM %v
-		WHERE user_id = ?
+		WHERE  note_id = ?
 			AND deleted_at IS NULL
 		LIMIT %v OFFSET %v
 		`, table, max, page),
-		userID)
+		noteID)
 	return result, err == sql.ErrNoRows, err
 }
 
-// ByUserIDCount counts the number of items for a user.
-func ByUserIDCount(db Connection, userID string) (int, error) {
+// ByNoteIDCount counts the number of items for a user.
+func ByNoteIDCount(db Connection, noteID string) (int, error) {
 	var result int
 	err := db.Get(&result, fmt.Sprintf(`
 		SELECT count(*)
 		FROM %v
-		WHERE user_id = ?
+		WHERE note_id = ?
 			AND deleted_at IS NULL
 		`, table),
-		userID)
+		noteID)
 	return result, err
 }
 
 // Create adds an item.
-func Create(db Connection, name string, userID string) (sql.Result, error) {
+func Create(db Connection, name string, noteID string) (sql.Result, error) {
 	result, err := db.Exec(fmt.Sprintf(`
 		INSERT INTO %v
-		(name, user_id)
+		(name, note_id)
 		VALUES
 		(?,?)
 		`, table),
-		name, userID)
+		name, noteID)
 	return result, err
 }
 
 // Update makes changes to an existing item.
-func Update(db Connection, name string, ID string, userID string) (sql.Result, error) {
+func Update(db Connection, name string, ID string, noteID string) (sql.Result, error) {
 	result, err := db.Exec(fmt.Sprintf(`
 		UPDATE %v
 		SET name = ?
 		WHERE id = ?
-			AND user_id = ?
+			AND note_id = ?
 			AND deleted_at IS NULL
 		LIMIT 1
 		`, table),
-		name, ID, userID)
+		name, ID, noteID)
 	return result, err
 }
 
 // DeleteHard removes an item.
-func DeleteHard(db Connection, ID string, userID string) (sql.Result, error) {
+func DeleteHard(db Connection, ID string, noteID string) (sql.Result, error) {
 	result, err := db.Exec(fmt.Sprintf(`
 		DELETE FROM %v
 		WHERE id = ?
-			AND user_id = ?
+			AND note_id = ?
 			AND deleted_at IS NULL
 		`, table),
-		ID, userID)
+		ID, noteID)
 	return result, err
 }
 
 // DeleteSoft marks an item as removed.
-func DeleteSoft(db Connection, ID string, userID string) (sql.Result, error) {
+func DeleteSoft(db Connection, ID string, noteID string) (sql.Result, error) {
 	result, err := db.Exec(fmt.Sprintf(`
 		UPDATE %v
 		SET deleted_at = NOW()
 		WHERE id = ?
-			AND user_id = ?
+			AND note_id = ?
 			AND deleted_at IS NULL
 		LIMIT 1
 		`, table),
-		ID, userID)
+		ID, noteID)
 	return result, err
 }
