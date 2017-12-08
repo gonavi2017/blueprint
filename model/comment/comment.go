@@ -32,17 +32,16 @@ type Connection interface {
 }
 
 // ByID gets an item by ID.
-func ByID(db Connection, ID string, noteID string) (Item, bool, error) {
+func ByID(db Connection, ID string) (Item, bool, error) {
 	result := Item{}
 	err := db.Get(&result, fmt.Sprintf(`
 		SELECT id, name, user_id, created_at, updated_at, deleted_at
 		FROM %v
 		WHERE id = ?
-			AND note_id = ?
 			AND deleted_at IS NULL
 		LIMIT 1
 		`, table),
-		ID, noteID)
+		ID)
 	return result, err == sql.ErrNoRows, err
 }
 

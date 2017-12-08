@@ -51,12 +51,12 @@
 				<div class="panel-body">
 					<div style="display:inline-block;">
 					<!-- Edit Button for owner only-->
-						<a title="Edit" class="btn btn-warning btn-sm" role="button" href="{{$.CurrentURI}}/edit/{{.ID}}">
+						<a title="Edit" class="btn btn-warning btn-sm" role="button" href="{{$.BaseURI}}comment/edit/{{.ID}}">
 							<span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span> Edit
 						</a>
 
 							<!-- Edit Button for owner only-->
-						<form class="button-form" method="post" action="{{$.CurrentURI}}/{{.ID}}?_method=delete">
+						<form class="button-form" method="post" action="{{$.BaseURI}}comment/view/{{.ID}}?_method=delete">
 							<button onclick="return confirm('Are you sure?')" type="submit" class="btn btn-danger btn-sm" />
 								<span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span> Delete
 							</button>
@@ -68,11 +68,5 @@
 				</div>
 			</div>
 		{{end}}
-
-
-
-
-
-	{{template "footer" .}}
-{{end}}
+	{{template "footer" .}}{{end}}
 {{define "foot"}}{{end}}

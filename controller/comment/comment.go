@@ -91,7 +91,7 @@ func Show(w http.ResponseWriter, r *http.Request) {
 	// Create a pagination instance with a max of 10 results.
 	p := pagination.New(r, 10)
 
-	item, _, err := comment.ByID(c.DB, c.Param("id"), c.Param("id"))
+	item, _, err := comment.ByID(c.DB, c.Param("id"))
 	if err != nil {
 		c.FlashErrorGeneric(err)
 		c.Redirect(uri)
@@ -117,7 +117,7 @@ func Show(w http.ResponseWriter, r *http.Request) {
 func Edit(w http.ResponseWriter, r *http.Request) {
 	c := flight.Context(w, r)
 
-	item, _, err := comment.ByID(c.DB, c.Param("id"), c.Param("id"))
+	item, _, err := comment.ByID(c.DB, c.Param("id"))
 	if err != nil {
 		c.FlashErrorGeneric(err)
 		c.Redirect(uri)
