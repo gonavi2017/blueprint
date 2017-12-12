@@ -33,7 +33,24 @@
 	</div>
 
 	<hr>
+    <div>
 		<h4>Comments</h4>
+		<a title="Add" class="btn btn-primary pull-left" role="button" href="{{$.BaseURI}}comment/create">
+          <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>Add
+      	</a>
+      	<!-- Search Bar -->  
+      	<div class="col-sm-4 col-xs-10 col-md-3">
+        	<div id="custom-search-input">
+            	<div class="input-group col-md-12">
+                    <input type="text" class="form-control input-sm" placeholder="Search for profession or business" />
+                    <span class="input-group-btn">
+                        <button class="btn btn-info btn-md" type="button">
+                            <i class="glyphicon glyphicon-search"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+      	</div>
 		{{range $n := .comments}}
 			<div class="panel panel-success">
 				 <div class="panel-heading row">
@@ -56,7 +73,7 @@
 						</a>
 
 							<!-- Edit Button for owner only-->
-						<form class="button-form" method="post" action="{{$.BaseURI}}comment/view/{{.ID}}?_method=delete">
+						<form class="button-form" method="post" action="{{$.BaseURI}}comment/{{.ID}}?_method=delete">
 							<button onclick="return confirm('Are you sure?')" type="submit" class="btn btn-danger btn-sm" />
 								<span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span> Delete
 							</button>

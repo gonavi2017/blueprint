@@ -32,16 +32,17 @@ type Connection interface {
 }
 
 // ByID gets an item by ID.
-func ByID(db Connection, ID string) (Item, bool, error) {
+func ByID(db Connection, ID string, userID string) (Item, bool, error) {
 	result := Item{}
 	err := db.Get(&result, fmt.Sprintf(`
 		SELECT id, name, user_id, created_at, updated_at, deleted_at
 		FROM %v
 		WHERE id = ?
+			AND user_id = ?
 			AND deleted_at IS NULL
 		LIMIT 1
 		`, table),
-		ID)
+		ID, userID)
 	return result, err == sql.ErrNoRows, err
 }
 
@@ -86,28 +87,28 @@ func ByNoteIDCount(db Connection, noteID string) (int, error) {
 }
 
 // Create adds an item.
-func Create(db Connection, name string, noteID string) (sql.Result, error) {
+func Create(db Connection, name string, noteID string, userID string) (sql.Result, error) {
 	result, err := db.Exec(fmt.Sprintf(`
 		INSERT INTO %v
-		(name, note_id)
+		(name, note_id, user_id)
 		VALUES
 		(?,?)
 		`, table),
-		name, noteID)
+		name, noteID, userID)
 	return result, err
 }
 
 // Update makes changes to an existing item.
-func Update(db Connection, name string, ID string, noteID string) (sql.Result, error) {
+func Update(db Connection, name string, ID string, userID string) (sql.Result, error) {
 	result, err := db.Exec(fmt.Sprintf(`
 		UPDATE %v
 		SET name = ?
 		WHERE id = ?
-			AND note_id = ?
+			AND user_id = ?
 			AND deleted_at IS NULL
 		LIMIT 1
 		`, table),
-		name, ID, noteID)
+		name, ID, userID)
 	return result, err
 }
 
@@ -124,15 +125,15 @@ func DeleteHard(db Connection, ID string, noteID string) (sql.Result, error) {
 }
 
 // DeleteSoft marks an item as removed.
-func DeleteSoft(db Connection, ID string, noteID string) (sql.Result, error) {
+func DeleteSoft(db Connection, ID string, userID string) (sql.Result, error) {
 	result, err := db.Exec(fmt.Sprintf(`
 		UPDATE %v
 		SET deleted_at = NOW()
 		WHERE id = ?
-			AND note_id = ?
+			AND user_id = ?
 			AND deleted_at IS NULL
 		LIMIT 1
 		`, table),
-		ID, noteID)
+		ID, userID)
 	return result, err
 }

@@ -73,7 +73,7 @@ func Store(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	_, err := comment.Create(c.DB, r.FormValue("name"), c.Param("id"))
+	_, err := comment.Create(c.DB, r.FormValue("name"), c.Param("id"), c.UserID)
 	if err != nil {
 		c.FlashErrorGeneric(err)
 		Create(w, r)
@@ -91,7 +91,7 @@ func Show(w http.ResponseWriter, r *http.Request) {
 	// Create a pagination instance with a max of 10 results.
 	p := pagination.New(r, 10)
 
-	item, _, err := comment.ByID(c.DB, c.Param("id"))
+	item, _, err := comment.ByID(c.DB, c.Param("id"), c.UserID)
 	if err != nil {
 		c.FlashErrorGeneric(err)
 		c.Redirect(uri)
@@ -117,7 +117,7 @@ func Show(w http.ResponseWriter, r *http.Request) {
 func Edit(w http.ResponseWriter, r *http.Request) {
 	c := flight.Context(w, r)
 
-	item, _, err := comment.ByID(c.DB, c.Param("id"))
+	item, _, err := comment.ByID(c.DB, c.Param("id"), c.UserID)
 	if err != nil {
 		c.FlashErrorGeneric(err)
 		c.Redirect(uri)
@@ -139,7 +139,7 @@ func Update(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	_, err := comment.Update(c.DB, r.FormValue("name"), c.Param("id"), c.Param("id"))
+	_, err := comment.Update(c.DB, r.FormValue("name"), c.Param("id"), c.UserID)
 	if err != nil {
 		c.FlashErrorGeneric(err)
 		Edit(w, r)
@@ -154,7 +154,7 @@ func Update(w http.ResponseWriter, r *http.Request) {
 func Destroy(w http.ResponseWriter, r *http.Request) {
 	c := flight.Context(w, r)
 
-	_, err := comment.DeleteSoft(c.DB, c.Param("id"), c.Param("id"))
+	_, err := comment.DeleteSoft(c.DB, c.Param("id"), c.UserID)
 	if err != nil {
 		c.FlashErrorGeneric(err)
 	} else {
