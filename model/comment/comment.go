@@ -17,7 +17,7 @@ var (
 type Item struct {
 	ID        uint32         `db:"id"`
 	Name      string         `db:"name"`
-	noteID    uint32         `db:"note_id"`
+	NoteID    uint32         `db:"note_id"`
 	UserID    uint32         `db:"user_id"`
 	CreatedAt mysql.NullTime `db:"created_at"`
 	UpdatedAt mysql.NullTime `db:"updated_at"`
@@ -35,7 +35,7 @@ type Connection interface {
 func ByID(db Connection, ID string, userID string) (Item, bool, error) {
 	result := Item{}
 	err := db.Get(&result, fmt.Sprintf(`
-		SELECT id, name, user_id, created_at, updated_at, deleted_at
+		SELECT id, name, note_id, user_id, created_at, updated_at, deleted_at
 		FROM %v
 		WHERE id = ?
 			AND user_id = ?
@@ -92,7 +92,7 @@ func Create(db Connection, name string, noteID string, userID string) (sql.Resul
 		INSERT INTO %v
 		(name, note_id, user_id)
 		VALUES
-		(?,?)
+		(?,?,?)
 		`, table),
 		name, noteID, userID)
 	return result, err

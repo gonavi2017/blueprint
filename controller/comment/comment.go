@@ -10,18 +10,20 @@ import (
 
 	"github.com/blue-jay/core/pagination"
 	"github.com/blue-jay/core/router"
+	"strconv"
 )
 
 var (
-	uri = "/comment"
+	parentURI = "/note"
+	uri       = "/comment"
 )
 
 // Load the routes.
 func Load() {
 	c := router.Chain(acl.DisallowAnon)
 	router.Get(uri, Index, c...)
-	router.Get(uri+"/create", Create, c...)
-	router.Post(uri+"/create", Store, c...)
+	router.Get(uri+"/create/:id", Create, c...)
+	router.Post(uri+"/create/:id", Store, c...)
 	router.Get(uri+"/view/:id", Show, c...)
 	router.Get(uri+"/edit/:id", Edit, c...)
 	router.Patch(uri+"/edit/:id", Update, c...)
@@ -72,7 +74,7 @@ func Store(w http.ResponseWriter, r *http.Request) {
 		Create(w, r)
 		return
 	}
-
+	noteID := c.Param("id")
 	_, err := comment.Create(c.DB, r.FormValue("name"), c.Param("id"), c.UserID)
 	if err != nil {
 		c.FlashErrorGeneric(err)
@@ -80,8 +82,8 @@ func Store(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	c.FlashSuccess("Item added.")
-	c.Redirect(uri)
+	c.FlashSuccess("you comment added successfully.")
+	c.Redirect(parentURI + "/view/" + noteID)
 }
 
 // Show displays a single item.
@@ -138,28 +140,40 @@ func Update(w http.ResponseWriter, r *http.Request) {
 		Edit(w, r)
 		return
 	}
+	item, _, err := comment.ByID(c.DB, c.Param("id"), c.UserID)
+	if err != nil {
+		c.FlashErrorGeneric(err)
+		c.Redirect(uri)
+		return
+	}
 
-	_, err := comment.Update(c.DB, r.FormValue("name"), c.Param("id"), c.UserID)
+	_, err = comment.Update(c.DB, r.FormValue("name"), c.Param("id"), c.UserID)
 	if err != nil {
 		c.FlashErrorGeneric(err)
 		Edit(w, r)
 		return
 	}
-
-	c.FlashSuccess("Item updated.")
-	c.Redirect(uri)
+	c.FlashSuccess("you comment updated successfully.")
+	c.Redirect(parentURI + "/view/" + strconv.FormatUint(uint64(item.NoteID), 10))
 }
 
 // Destroy handles the delete form submission.
 func Destroy(w http.ResponseWriter, r *http.Request) {
 	c := flight.Context(w, r)
 
-	_, err := comment.DeleteSoft(c.DB, c.Param("id"), c.UserID)
+	item, _, err := comment.ByID(c.DB, c.Param("id"), c.UserID)
+	if err != nil {
+		c.FlashErrorGeneric(err)
+		c.Redirect(uri)
+		return
+	}
+
+	_, err = comment.DeleteSoft(c.DB, c.Param("id"), c.UserID)
 	if err != nil {
 		c.FlashErrorGeneric(err)
 	} else {
-		c.FlashNotice("Item deleted.")
+		c.FlashSuccess("you comment deleted successfully.")
 	}
 
-	c.Redirect(uri)
+	c.Redirect(parentURI + "/view/" + strconv.FormatUint(uint64(item.NoteID), 10))
 }

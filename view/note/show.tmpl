@@ -31,59 +31,6 @@
 			<span class="pull-right" style="margin-top: 14px;">{{PRETTYTIME .item.CreatedAt .item.UpdatedAt}}</span>
 		</div>
 	</div>
-
-	<hr>
-    <div>
-		<h4>Comments</h4>
-		<a title="Add" class="btn btn-primary pull-left" role="button" href="{{$.BaseURI}}comment/create">
-          <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>Add
-      	</a>
-      	<!-- Search Bar -->  
-      	<div class="col-sm-4 col-xs-10 col-md-3">
-        	<div id="custom-search-input">
-            	<div class="input-group col-md-12">
-                    <input type="text" class="form-control input-sm" placeholder="Search for profession or business" />
-                    <span class="input-group-btn">
-                        <button class="btn btn-info btn-md" type="button">
-                            <i class="glyphicon glyphicon-search"></i>
-                        </button>
-                    </span>
-                </div>
-            </div>
-      	</div>
-		{{range $n := .comments}}
-			<div class="panel panel-success">
-				 <div class="panel-heading row">
-					<span class="col-xs-8 inline">
-					 	<p>{{.Name}}</p>
-					</span>
-					<span class="pull-right" style="backgound-color:darkblue">
-						<ul class="list-inline">
-							<li class="list-inline-item" style="color:#3b5998"><span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span> 82</li>
-							<li class="list-inline-item" style="color:#3b5998"><span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span> 9</li>
-						</ul>    
-					</span>
-				</div>
-
-				<div class="panel-body">
-					<div style="display:inline-block;">
-					<!-- Edit Button for owner only-->
-						<a title="Edit" class="btn btn-warning btn-sm" role="button" href="{{$.BaseURI}}comment/edit/{{.ID}}">
-							<span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span> Edit
-						</a>
-
-							<!-- Edit Button for owner only-->
-						<form class="button-form" method="post" action="{{$.BaseURI}}comment/{{.ID}}?_method=delete">
-							<button onclick="return confirm('Are you sure?')" type="submit" class="btn btn-danger btn-sm" />
-								<span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span> Delete
-							</button>
-							<input type="hidden" name="_token" value="{{$.token}}">
-						</form>
-					</span>
-					</div>
-					<span class="pull-right" style="margin-top: 14px;">{{PRETTYTIME .CreatedAt .UpdatedAt}}</span>
-				</div>
-			</div>
-		{{end}}
+	{{template "show" .}}
 	{{template "footer" .}}{{end}}
 {{define "foot"}}{{end}}
