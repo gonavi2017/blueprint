@@ -4,8 +4,10 @@ package register
 import (
 	"errors"
 	"net/http"
+	"strings"
 
 	"github.com/gonavi2017/blueprint/lib/flight"
+	"github.com/gonavi2017/blueprint/lib/recaptcha"
 	"github.com/gonavi2017/blueprint/middleware/acl"
 	"github.com/gonavi2017/blueprint/model/user"
 
@@ -34,6 +36,17 @@ func Store(w http.ResponseWriter, r *http.Request) {
 
 	// Validate with required fields
 	if !c.FormValid("first_name", "last_name", "email", "password", "password_verify") {
+		Index(w, r)
+		return
+	}
+
+	SecretKey := "6Ld0Yz0UAAAAAJcV9fwXAQGO0AMi00K4ZxOCScJQ"
+	re := recaptcha.Recaptcha{
+		Secret: SecretKey,
+	}
+	isValid, errs := re.Verify(*r)
+	if !isValid {
+		c.FlashError(errors.New(strings.Join(errs, ",")))
 		Index(w, r)
 		return
 	}
