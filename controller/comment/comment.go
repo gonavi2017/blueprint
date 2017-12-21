@@ -8,8 +8,8 @@ import (
 	"github.com/gonavi2017/blueprint/middleware/acl"
 	"github.com/gonavi2017/blueprint/model/comment"
 
-	"github.com/blue-jay/core/pagination"
-	"github.com/blue-jay/core/router"
+	"github.com/gonavi2017/core/pagination"
+	"github.com/gonavi2017/core/router"
 	"strconv"
 )
 

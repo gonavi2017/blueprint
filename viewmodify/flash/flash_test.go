@@ -10,9 +10,9 @@ import (
 	"github.com/blue-jay/blueprint/lib/flight"
 	flashmod "github.com/blue-jay/blueprint/viewmodify/flash"
 
-	"github.com/blue-jay/core/flash"
-	"github.com/blue-jay/core/session"
-	"github.com/blue-jay/core/view"
+	"github.com/gonavi2017/core/flash"
+	"github.com/gonavi2017/core/session"
+	"github.com/gonavi2017/core/view"
 
 	"github.com/gorilla/sessions"
 )

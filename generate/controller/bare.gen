@@ -6,7 +6,7 @@ import (
 
 	"github.com/blue-jay/blueprint/controller/status"
 
-	"github.com/blue-jay/core/router"
+	"github.com/gonavi2017/core/router"
 )
 
 var (

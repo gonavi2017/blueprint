@@ -11,11 +11,11 @@ import (
 	"github.com/gonavi2017/blueprint/middleware/acl"
 	"github.com/gonavi2017/blueprint/model/user"
 
-	"github.com/blue-jay/core/flash"
-	"github.com/blue-jay/core/form"
-	"github.com/blue-jay/core/passhash"
-	"github.com/blue-jay/core/router"
-	"github.com/blue-jay/core/session"
+	"github.com/gonavi2017/core/flash"
+	"github.com/gonavi2017/core/form"
+	"github.com/gonavi2017/core/passhash"
+	"github.com/gonavi2017/core/router"
+	"github.com/gonavi2017/core/session"
 )
 
 //var _SiteKey string = "6Ld0Yz0UAAAAABmOy1l6J01GyJAP5K7V0-kUCPR-"

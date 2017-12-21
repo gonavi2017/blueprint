@@ -6,7 +6,7 @@ import (
 	"testing"
 
 	"github.com/blue-jay/blueprint/lib/flight"
-	"github.com/blue-jay/core/xsrf"
+	"github.com/gonavi2017/core/xsrf"
 )
 
 // TestRace tests for race conditions.

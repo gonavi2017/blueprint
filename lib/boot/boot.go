@@ -14,9 +14,9 @@ import (
 	"github.com/gonavi2017/blueprint/viewmodify/flash"
 	"github.com/gonavi2017/blueprint/viewmodify/uri"
 
-	"github.com/blue-jay/core/form"
-	"github.com/blue-jay/core/pagination"
-	"github.com/blue-jay/core/xsrf"
+	"github.com/gonavi2017/core/form"
+	"github.com/gonavi2017/core/pagination"
+	"github.com/gonavi2017/core/xsrf"
 )
 
 // RegisterServices sets up all the web components.

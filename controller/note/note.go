@@ -9,8 +9,8 @@ import (
 	"github.com/gonavi2017/blueprint/model/comment"
 	"github.com/gonavi2017/blueprint/model/note"
 
-	"github.com/blue-jay/core/pagination"
-	"github.com/blue-jay/core/router"
+	"github.com/gonavi2017/core/pagination"
+	"github.com/gonavi2017/core/router"
 )
 
 var (

@@ -4,9 +4,9 @@ package boot
 import (
 	"net/http"
 
-	"github.com/blue-jay/core/router"
 	"github.com/gonavi2017/blueprint/middleware/logrequest"
 	"github.com/gonavi2017/blueprint/middleware/rest"
+	"github.com/gonavi2017/core/router"
 	"github.com/gorilla/context"
 )
 

@@ -9,7 +9,7 @@ import (
 	"github.com/gonavi2017/blueprint/controller/status"
 	"github.com/gonavi2017/blueprint/lib/flight"
 
-	"github.com/blue-jay/core/router"
+	"github.com/gonavi2017/core/router"
 )
 
 // Load the routes.

@@ -4,15 +4,15 @@ package env
 import (
 	"encoding/json"
 
-	"github.com/blue-jay/core/asset"
-	"github.com/blue-jay/core/email"
-	"github.com/blue-jay/core/form"
-	"github.com/blue-jay/core/generate"
-	"github.com/blue-jay/core/jsonconfig"
-	"github.com/blue-jay/core/server"
-	"github.com/blue-jay/core/session"
-	"github.com/blue-jay/core/storage/driver/mysql"
-	"github.com/blue-jay/core/view"
+	"github.com/gonavi2017/core/asset"
+	"github.com/gonavi2017/core/email"
+	"github.com/gonavi2017/core/form"
+	"github.com/gonavi2017/core/generate"
+	"github.com/gonavi2017/core/jsonconfig"
+	"github.com/gonavi2017/core/server"
+	"github.com/gonavi2017/core/session"
+	"github.com/gonavi2017/core/storage/driver/mysql"
+	"github.com/gonavi2017/core/view"
 )
 
 // *****************************************************************************

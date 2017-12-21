@@ -9,10 +9,10 @@ import (
 
 	"github.com/gonavi2017/blueprint/lib/env"
 
-	"github.com/blue-jay/core/flash"
-	"github.com/blue-jay/core/form"
-	"github.com/blue-jay/core/router"
-	"github.com/blue-jay/core/view"
+	"github.com/gonavi2017/core/flash"
+	"github.com/gonavi2017/core/form"
+	"github.com/gonavi2017/core/router"
+	"github.com/gonavi2017/core/view"
 
 	"github.com/gorilla/sessions"
 	"github.com/jmoiron/sqlx"

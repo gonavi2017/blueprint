@@ -8,8 +8,8 @@ import (
 	"github.com/gonavi2017/blueprint/lib/boot"
 	"github.com/gonavi2017/blueprint/lib/env"
 
-	"github.com/blue-jay/core/router"
-	"github.com/blue-jay/core/server"
+	"github.com/gonavi2017/core/router"
+	"github.com/gonavi2017/core/server"
 )
 
 // init sets runtime settings.

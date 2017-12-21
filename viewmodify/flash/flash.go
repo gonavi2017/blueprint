@@ -7,8 +7,8 @@ import (
 
 	"github.com/gonavi2017/blueprint/lib/flight"
 
-	flashlib "github.com/blue-jay/core/flash"
-	"github.com/blue-jay/core/view"
+	flashlib "github.com/gonavi2017/core/flash"
+	"github.com/gonavi2017/core/view"
 )
 
 // Modify adds the flashes to the view.
