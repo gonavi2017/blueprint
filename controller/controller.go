@@ -11,9 +11,11 @@ import (
 	"github.com/gonavi2017/blueprint/controller/register"
 	"github.com/gonavi2017/blueprint/controller/static"
 	"github.com/gonavi2017/blueprint/controller/status"
+	"github.com/gonavi2017/blueprint/controller/cart"
+	"github.com/gonavi2017/blueprint/controller/market"
 )
 
-// LoadRoutes loads the routes for each of the controllers.
+// LSoadRoutes loads the routes for each of the controllers.
 func LoadRoutes() {
 	about.Load()
 	debug.Load()
@@ -24,4 +26,6 @@ func LoadRoutes() {
 	status.Load()
 	comment.Load()
 	note.Load()
+	cart.Load()
+	market.Load()
 }
