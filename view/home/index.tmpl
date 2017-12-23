@@ -7,7 +7,19 @@
 			<h1>Hello, {{.first_name}}</h1>
 		</div>
 		<p>You have arrived. Click {{LINK "note" "here"}} to view your note.</p>
-	
+		{{range $n := .Dashboard.Tabs}}
+			<ul class="nav nav-tabs">
+				{{if .Active}}
+					<li class = "active">
+				{{else}}
+					<li>
+				{{end}}
+				<a href="{{.ID}}">{{.Name}}</a></li>
+			</ul>
+				{{if .Active}}
+					<p> This is {{.Description}} </p>
+				{{end}}
+		{{end}}
 	{{else}}
 	
 		<div class="page-header">

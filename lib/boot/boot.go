@@ -11,6 +11,7 @@ import (
 	"github.com/gonavi2017/blueprint/viewfunc/noescape"
 	"github.com/gonavi2017/blueprint/viewfunc/prettytime"
 	"github.com/gonavi2017/blueprint/viewmodify/authlevel"
+	"github.com/gonavi2017/blueprint/viewmodify/dashboard"
 	"github.com/gonavi2017/blueprint/viewmodify/flash"
 	"github.com/gonavi2017/blueprint/viewmodify/uri"
 
@@ -49,6 +50,7 @@ func RegisterServices(config *env.Info) {
 	// Set up the variables and modifiers for the views
 	config.View.SetModifiers(
 		authlevel.Modify,
+		dashboard.Modify,
 		uri.Modify,
 		xsrf.Token,
 		flash.Modify,
