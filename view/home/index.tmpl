@@ -3,10 +3,21 @@
 {{define "content"}}
 	{{if eq .AuthLevel "auth"}}
 	
-		<div class="page-header">
+		<!--<div class="page-header">
 			<h1>Hello, {{.first_name}}</h1>
 		</div>
-		<p>You have arrived. Click {{LINK "note" "here"}} to view your note.</p>
+		<p>You have arrived. Click {{LINK "note" "here"}} to view your note.</p>-->
+
+		<ul class="nav nav-tabs">
+			<li><a href="#">FUT</a></li>
+			<li class="active"><a href="#">OPT</a></li>
+			<li><a href="#">FI</a></li>
+			<li><a href="#">FX</a></li>
+		</ul>
+
+
+
+
 	
 	{{else}}
 	

@@ -60,13 +60,18 @@
 					</a>
 					
 					<!-- Edit Button for owner only-->
-                    <form class="button-form" method="post" action="{{$.CurrentURI}}/{{.ID}}?_method=delete">
+          <form class="button-form" method="post" action="{{$.CurrentURI}}/{{.ID}}?_method=delete">
 						<button onclick="return confirm('Are you sure?')" type="submit" class="btn btn-danger" />
 							<span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span> Delete
 						</button>
 						<input type="hidden" name="_token" value="{{$.token}}">
 					</form>
-                </div>
+
+          <a title="Edit" class="btn btn-warning" role="button" href="{{$.CurrentURI}}/edit/{{.ID}}">
+            <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span> Add to Cart
+          </a>
+        
+        </div>
 				<span class="pull-right" style="margin-top: 14px;">{{PRETTYTIME .CreatedAt .UpdatedAt}}</span>
 			</div>
 		</div>

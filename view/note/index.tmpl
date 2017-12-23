@@ -2,9 +2,9 @@
 {{define "head"}}{{end}}
 {{define "content"}}
 	<div class="page-header" style="padding-bottom:4%">
-		<h1 style="color:#3b5998">Notes</h1>
-      <a title="Add" class="btn btn-primary pull-left" role="button" href="{{$.CurrentURI}}/create">
-          <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>Add
+		<h3 style="color:#3b5998">Products</h3>
+      <a title="Add" class="btn btn-primary btn-sm pull-left" role="button" href="{{$.CurrentURI}}/create">
+          <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
       </a>
       <!-- Search Bar -->  
       <div class="col-sm-4 col-xs-10 col-md-3">
@@ -20,56 +20,73 @@
             </div>
       </div>
   </div>
-	
-  
+	    
+    
+ 
+
 	{{range $n := .items}}
-	<div class="panel panel-default">
-      
-      <div class="panel-heading row">
-        <span class="col-xs-6 inline">
-        <ul class="list-inline">
-            <li class="list-inline-item" style="color:#DAA520"><i class="fa fa-star fa-lg"></i></li>
-            <li class="list-inline-item" style="color:#DAA520;"><i class="fa fa-star fa-lg"></i></li>
-            <li class="list-inline-item" style="color:#DAA520;"><i class="fa fa-star fa-lg"></i></li>
-            <li class="list-inline-item" style="color:#DAA520;"><i class="fa fa-star fa-lg"></i></li>
-            <li class="list-inline-item" style="color:white;text-shadow: 0px 0px 3px #000;"><i class="fa fa-star fa-lg"></i></li>
-        </ul>    
-        </span>
-        <span class="pull-right" style="backgound-color:darkblue">
-            <ul class="list-inline">
-                <li class="list-inline-item" style="color:#3b5998"><span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span> 82</li>
-                <li class="list-inline-item" style="color:#3b5998"><span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span> 9</li>
-            </ul>    
-        </span>
-      </div>
 
-			<div class="panel-body">
-				<p>{{.Name}}</p>
-				<div style="display:inline-block;">
+            <div class="row"> 
+                    <div class="col-xs-12 col-sm-3 col-md-3">
+                        <a href="#">
+                            <img src="http://wanderluxe.theluxenomad.com/wp-content/uploads/2014/10/http-www.urchinbali.comgallery.jpg" class="img-responsive img-box img-thumbnail"> 
+                        </a>
+                    </div> 
+                    <div class="col-xs-12 col-sm-9 col-md-9">
+                        <div class="list-group">
+                            <div class="list-group-item">
+                                <div class="row-picture">
+                                    <p>{{.Name}}</p>
 
-                    <!-- View Button for both user and owner -->
-					<a title="View" class="btn btn-info" role="button" href="{{$.CurrentURI}}/view/{{.ID}}">
-						<span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> View
-					</a>
-                    <!-- View Button -->
+                                </div>
+                                <div class="row-content">
+                                    <div class="list-group-item-heading">
+                                        <a href="#" title="sintret">
+                                          <p>Kshitiz</p>      
+                                        </a>
+                                    </div>
+                                    <small>
+                                        <i class="glyphicon glyphicon-time"></i> {{PRETTYTIME .CreatedAt .UpdatedAt}}
+                                        <br>
+                                          <ul class="list-inline">
+                                            <li class="list-inline-item" style="color:#DAA520"><i class="fa fa-star fa-sm"></i></li>
+                                            <li class="list-inline-item" style="color:#DAA520;"><i class="fa fa-star fa-sm"></i></li>
+                                            <li class="list-inline-item" style="color:#DAA520;"><i class="fa fa-star fa-sm"></i></li>
+                                            <li class="list-inline-item" style="color:#DAA520;"><i class="fa fa-star fa-sm"></i></li>
+                                            <li class="list-inline-item" style="color:white;text-shadow: 0px 0px 3px #000;"><i class="fa fa-star fa-sm"></i></li>
+                                        </ul>    
+                                    </small>
+                                                <!-- View Button  for both user and owner -->
+                              <a title="View" class="btn btn-info btn-sm" role="button" href="{{$.CurrentURI}}/view/{{.ID}}">
+                                <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> View
+                              </a>
+                                        <!-- View Button -->
 
 
-                    <!-- Edit Button for owner only-->
-					<a title="Edit" class="btn btn-warning" role="button" href="{{$.CurrentURI}}/edit/{{.ID}}">
-						<span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span> Edit
-					</a>
-					
-					<!-- Edit Button for owner only-->
-                    <form class="button-form" method="post" action="{{$.CurrentURI}}/{{.ID}}?_method=delete">
-						<button onclick="return confirm('Are you sure?')" type="submit" class="btn btn-danger" />
-							<span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span> Delete
-						</button>
-						<input type="hidden" name="_token" value="{{$.token}}">
-					</form>
+                                        <!-- Edit Button for owner only-->
+                              <a title="Edit" class="btn btn-warning btn-sm" role="button" href="{{$.CurrentURI}}/edit/{{.ID}}">
+                                <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span> Edit
+                              </a>
+                              
+                              <!-- Edit Button for owner only-->
+                                        <form class="button-form" method="post" action="{{$.CurrentURI}}/{{.ID}}?_method=delete">
+                                <button onclick="return confirm('Are you sure?')" type="submit" class="btn btn-danger btn-sm" />
+                                  <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span> Delete
+                                </button>
+                                <input type="hidden" name="_token" value="{{$.token}}">
+                              </form>
+
+                              <a title="Cart" class="btn btn-primary btn-sm" role="button" href="{{$.CurrentURI}}/view/{{.ID}}">
+                               Add to Cart
+                              </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div> 
                 </div>
-				<span class="pull-right" style="margin-top: 14px;">{{PRETTYTIME .CreatedAt .UpdatedAt}}</span>
-			</div>
-		</div>
+                <hr>
+
+
 	{{end}}
 	
 	{{PAGINATION .pagination .}}
