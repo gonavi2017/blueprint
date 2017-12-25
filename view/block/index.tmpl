@@ -1,8 +1,8 @@
-{{define "title"}}Items{{end}}
+{{define "title"}}Blocks{{end}}
 {{define "head"}}{{end}}
 {{define "content"}}
 	<div class="page-header" style="padding-bottom:4%">
-		<h3 style="color:#3b5998">Products</h3>
+		<h3 style="color:#3b5998">Blocks</h3>
       <a title="Add" class="btn btn-primary btn-sm pull-left" role="button" href="{{$.CurrentURI}}/create">
           <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
       </a>
@@ -27,7 +27,7 @@
 	{{range $n := .items}}
 
             <div class="row"> 
-                    <div class="col-xs-12 col-sm-3 col-md-3">
+                    <div class="col-xs-6 col-sm-3 col-md-3">
                         <a href="#">
                             <img src="http://wanderluxe.theluxenomad.com/wp-content/uploads/2014/10/http-www.urchinbali.comgallery.jpg" class="img-responsive img-box img-thumbnail"> 
                         </a>
