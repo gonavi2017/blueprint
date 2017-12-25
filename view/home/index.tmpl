@@ -3,35 +3,46 @@
 {{define "content"}}
 	{{if eq .AuthLevel "auth"}}
 	
-		<div class="page-header">
-			<!-- <h1>Hello, {{.first_name}}</h1> -->
+		<!--<div class="page-header">
+			<h1>Hello, {{.first_name}}</h1>
 		</div>
-
-		<!-- <p>You have arrived. Click {{LINK "note" "here"}} to view your note.</p> -->
-		<ul class="nav nav-tabs">
-			{{range $n := .Dashboard.Tabs}}
+<<<<<<< HEAD
+		<p>You have arrived. Click {{LINK "note" "here"}} to view your note.</p>
+		{{range $n := .Dashboard.Tabs}}
+			<ul class="nav nav-tabs">
 				{{if .Active}}
 					<li class = "active">
 				{{else}}
 					<li>
 				{{end}}
 				<a href="{{.ID}}">{{.Name}}</a></li>
-			{{end}}
+			</ul>
+				{{if .Active}}
+					<p> This is {{.Description}} </p>
+				{{end}}
+		{{end}}
+=======
+		<p>You have arrived. Click {{LINK "note" "here"}} to view your note.</p>-->
+
+		<ul class="nav nav-tabs">
+			<li><a href="#">FUT</a></li>
+			<li class="active"><a href="#">OPT</a></li>
+			<li><a href="#">FI</a></li>
+			<li><a href="#">FX</a></li>
 		</ul>
-		<div class="row">
-			<div class="col-md-12 col-sm-12 col-lg-12">
-				{{range $n := .Dashboard.Tabs}}
-					{{if .Active}}
-						<p>{{.Description}} </p>
-					{{end}}			
-				{{end}}	
-			</div>
-		</div>
+
+
+
+
+	
+>>>>>>> 151a81c3559ce21ac040a2ea1b41f3010943f6fb
 	{{else}}
+	
 		<div class="page-header">
 			<h1>{{template "title" .}}</h1>
 		</div>
 		<p>Click {{LINK "login" "here"}} to login.</p>
+	
 	{{end}}
 	
 	{{template "footer" .}}
