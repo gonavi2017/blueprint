@@ -8,4 +8,4 @@ SET foreign_key_checks = 0;
 # ******************************************************************************
 DROP TABLE IF EXISTS user;
 DROP TABLE IF EXISTS user_status;
-DROP TABLE IF EXISTS note;
+DROP TABLE IF EXISTS block;

@@ -49,7 +49,7 @@ INSERT INTO `user_status` (`id`, `status`, `created_at`, `updated_at`, `deleted_
 (1, 'active',   CURRENT_TIMESTAMP,  NULL,  NULL),
 (2, 'inactive', CURRENT_TIMESTAMP,  NULL,  NULL);
 
-CREATE TABLE note (
+CREATE TABLE block (
     id INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
     
     name TEXT NOT NULL,
@@ -60,7 +60,7 @@ CREATE TABLE note (
     updated_at TIMESTAMP NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
     deleted_at TIMESTAMP NULL DEFAULT NULL,
     
-    CONSTRAINT `f_note_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT `f_block_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
     
     PRIMARY KEY (id)
 );

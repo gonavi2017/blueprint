@@ -3,19 +3,18 @@ package controller
 
 import (
 	"github.com/gonavi2017/blueprint/controller/about"
-	"github.com/gonavi2017/blueprint/controller/comment"
+	"github.com/gonavi2017/blueprint/controller/block"
+	"github.com/gonavi2017/blueprint/controller/cart"
 	"github.com/gonavi2017/blueprint/controller/debug"
 	"github.com/gonavi2017/blueprint/controller/home"
 	"github.com/gonavi2017/blueprint/controller/login"
-	"github.com/gonavi2017/blueprint/controller/note"
+	"github.com/gonavi2017/blueprint/controller/lot"
 	"github.com/gonavi2017/blueprint/controller/register"
 	"github.com/gonavi2017/blueprint/controller/static"
 	"github.com/gonavi2017/blueprint/controller/status"
-	"github.com/gonavi2017/blueprint/controller/cart"
-	"github.com/gonavi2017/blueprint/controller/market"
 )
 
-// LSoadRoutes loads the routes for each of the controllers.
+//LoadRoutes loads the routes for each of the controllers.
 func LoadRoutes() {
 	about.Load()
 	debug.Load()
@@ -24,8 +23,7 @@ func LoadRoutes() {
 	home.Load()
 	static.Load()
 	status.Load()
-	comment.Load()
-	note.Load()
+	lot.Load()
+	block.Load()
 	cart.Load()
-	market.Load()
 }

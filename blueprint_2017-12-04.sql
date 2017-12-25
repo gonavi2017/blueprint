@@ -20,36 +20,36 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 
-# Dump of table comment
+# Dump of table lot
 # ------------------------------------------------------------
 
-DROP TABLE IF EXISTS `comment`;
+DROP TABLE IF EXISTS `lot`;
 
-CREATE TABLE `comment` (
+CREATE TABLE `lot` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `note_id` int(10) unsigned NOT NULL,
+  `block_id` int(10) unsigned NOT NULL,
   `user_id` int(10) unsigned NOT NULL,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `f_comment_note` (`note_id`),
-  KEY `f_comment_user` (`user_id`),
-  CONSTRAINT `f_comment_note` FOREIGN KEY (`note_id`) REFERENCES `note` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `f_comment_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  KEY `f_lot_block` (`block_id`),
+  KEY `f_lot_user` (`user_id`),
+  CONSTRAINT `f_lot_block` FOREIGN KEY (`block_id`) REFERENCES `block` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `f_lot_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-LOCK TABLES `comment` WRITE;
-/*!40000 ALTER TABLE `comment` DISABLE KEYS */;
+LOCK TABLES `lot` WRITE;
+/*!40000 ALTER TABLE `lot` DISABLE KEYS */;
 
-INSERT INTO `comment` (`id`, `name`, `note_id`, `user_id`, `created_at`, `updated_at`, `deleted_at`)
+INSERT INTO `lot` (`id`, `name`, `block_id`, `user_id`, `created_at`, `updated_at`, `deleted_at`)
 VALUES
-	(8,'Hit - 4 - Comment',4,1,'2017-11-24 05:40:37','2017-12-02 20:14:43',NULL),
-	(9,'Hit - 5 - Comment',5,1,'2017-11-24 05:40:44','2017-12-02 20:14:47',NULL),
-	(10,'Hit - 6 - Comment',6,1,'2017-11-24 05:40:51','2017-12-02 20:14:51',NULL);
+	(8,'Lot - 4 - lot',4,1,'2017-11-24 05:40:37','2017-12-02 20:14:43',NULL),
+	(9,'Lot - 4 - lot',4,1,'2017-11-24 05:40:44','2017-12-02 20:14:47',NULL),
+	(10,'Lot - 5 - lot',6,1,'2017-11-24 05:40:51','2017-12-02 20:14:51',NULL);
 
-/*!40000 ALTER TABLE `comment` ENABLE KEYS */;
+/*!40000 ALTER TABLE `lot` ENABLE KEYS */;
 UNLOCK TABLES;
 
 
@@ -77,12 +77,12 @@ VALUES
 UNLOCK TABLES;
 
 
-# Dump of table note
+# Dump of table block
 # ------------------------------------------------------------
 
-DROP TABLE IF EXISTS `note`;
+DROP TABLE IF EXISTS `block`;
 
-CREATE TABLE `note` (
+CREATE TABLE `block` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `user_id` int(10) unsigned NOT NULL,
@@ -90,20 +90,20 @@ CREATE TABLE `note` (
   `updated_at` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `f_note_user` (`user_id`),
-  CONSTRAINT `f_note_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  KEY `f_block_user` (`user_id`),
+  CONSTRAINT `f_block_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-LOCK TABLES `note` WRITE;
-/*!40000 ALTER TABLE `note` DISABLE KEYS */;
+LOCK TABLES `block` WRITE;
+/*!40000 ALTER TABLE `block` DISABLE KEYS */;
 
-INSERT INTO `note` (`id`, `name`, `user_id`, `created_at`, `updated_at`, `deleted_at`)
+INSERT INTO `block` (`id`, `name`, `user_id`, `created_at`, `updated_at`, `deleted_at`)
 VALUES
-	(4,'Hit - 4',1,'2017-11-24 05:40:37','2017-12-02 19:43:10',NULL),
-	(5,'Hit - 5',1,'2017-11-24 05:40:44','2017-12-02 19:43:18',NULL),
-	(6,'Hit - 6',1,'2017-11-24 05:40:51','2017-12-02 19:43:29',NULL);
+	(4,'Block - 4',1,'2017-11-24 05:40:37','2017-12-02 19:43:10',NULL),
+	(5,'Block - 5',1,'2017-11-24 05:40:44','2017-12-02 19:43:18',NULL),
+	(6,'Block - 6',1,'2017-11-24 05:40:51','2017-12-02 19:43:29',NULL);
 
-/*!40000 ALTER TABLE `note` ENABLE KEYS */;
+/*!40000 ALTER TABLE `block` ENABLE KEYS */;
 UNLOCK TABLES;
 
 

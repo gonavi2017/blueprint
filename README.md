@@ -26,17 +26,17 @@ available to Blueprint and Jay as well as other applications.
 Check the [milestones](https://github.com/blue-jay/blueprint/milestones) for
 project status.
 
-Note:
+Notes:
 Functionality:
     1- Entry
         a. Parameters(1- Green: the purpose solved, 2- Yellow: it was hard, but purpose still solved and will avoid in future, 3- Red: purpose did not solve)
         b. End users(*, the user has to be registered with the system)
-        Comments: 60 words
+        Lots: 60 words
         c. Action: ok, cancel
     2-Search
         a. Parameters(1 - , 2 - , 3- )
         b. List
-        c. Action: Assign Note OR Use it
+        c. Action: Assign Block OR Use it
     3-Register
         a. End User
     4-Business development
@@ -61,7 +61,7 @@ IT:
     
 Mappings:
 "Available on GitHub" : "Copyright"
-"Blueprint": "Note"
+"Blueprint": "Block"
 "Home": "Description"
 
 
@@ -71,4 +71,4 @@ Main Screen Design
 0) name - text
 1) Category - text
 2) Rating -  R,Y,G
-3) Comment - text
+3) Lot - text

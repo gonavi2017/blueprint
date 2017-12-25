@@ -1,11 +1,11 @@
-package comment_test
+package block_test
 
 import (
 	"fmt"
 	"os"
 	"testing"
 
-	"github.com/blue-jay/blueprint/model/comment"
+	"github.com/blue-jay/blueprint/model/block"
 	"github.com/blue-jay/blueprint/model/user"
 	"github.com/gonavi2017/core/storage/migration/mysql"
 
@@ -56,7 +56,7 @@ func TestComplete(t *testing.T) {
 	userID := fmt.Sprintf("%v", uID)
 
 	// Create a record
-	result, err = comment.Create(db, data, userID)
+	result, err = block.Create(db, data, userID)
 	if err != nil {
 		t.Error("could not create record:", err)
 	}
@@ -71,7 +71,7 @@ func TestComplete(t *testing.T) {
 	lastID := fmt.Sprintf("%v", ID)
 
 	// Select a record
-	record, _, err := comment.ByID(db, lastID, userID)
+	record, _, err := block.ByID(db, lastID, userID)
 	if err != nil {
 		t.Error("could not retrieve record:", err)
 	} else if record.Name != data {
@@ -79,13 +79,13 @@ func TestComplete(t *testing.T) {
 	}
 
 	// Update a record
-	result, err = comment.Update(db, dataNew, lastID, userID)
+	result, err = block.Update(db, dataNew, lastID, userID)
 	if err != nil {
 		t.Error("could not update record:", err)
 	}
 
 	// Select a record
-	record, _, err = comment.ByID(db, lastID, userID)
+	record, _, err = block.ByID(db, lastID, userID)
 	if err != nil {
 		t.Error("could not retrieve record:", err)
 	} else if record.Name != dataNew {
@@ -93,7 +93,7 @@ func TestComplete(t *testing.T) {
 	}
 
 	// Delete a record by ID
-	result, err = comment.DeleteSoft(db, lastID, userID)
+	result, err = block.DeleteSoft(db, lastID, userID)
 	if err != nil {
 		t.Error("could not delete record:", err)
 	}

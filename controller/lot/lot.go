@@ -1,28 +1,30 @@
-// Package note provides a simple CRUD application in a web page.
-package note
+// Package lot provides a simple CRUD application in a web page.
+package lot
 
 import (
 	"net/http"
 
 	"github.com/gonavi2017/blueprint/lib/flight"
 	"github.com/gonavi2017/blueprint/middleware/acl"
-	"github.com/gonavi2017/blueprint/model/comment"
-	"github.com/gonavi2017/blueprint/model/note"
+	"github.com/gonavi2017/blueprint/model/lot"
+
+	"strconv"
 
 	"github.com/gonavi2017/core/pagination"
 	"github.com/gonavi2017/core/router"
 )
 
 var (
-	uri = "/note"
+	parentURI = "/block"
+	uri       = "/lot"
 )
 
 // Load the routes.
 func Load() {
 	c := router.Chain(acl.DisallowAnon)
 	router.Get(uri, Index, c...)
-	router.Get(uri+"/create", Create, c...)
-	router.Post(uri+"/create", Store, c...)
+	router.Get(uri+"/create/:id", Create, c...)
+	router.Post(uri+"/create/:id", Store, c...)
 	router.Get(uri+"/view/:id", Show, c...)
 	router.Get(uri+"/edit/:id", Edit, c...)
 	router.Patch(uri+"/edit/:id", Update, c...)
@@ -36,13 +38,13 @@ func Index(w http.ResponseWriter, r *http.Request) {
 	// Create a pagination instance with a max of 10 results.
 	p := pagination.New(r, 10)
 
-	items, _, err := note.ByUserIDPaginate(c.DB, c.UserID, p.PerPage, p.Offset)
+	lots, _, err := lot.ByBlockIDPaginate(c.DB, c.Param("id"), p.PerPage, p.Offset)
 	if err != nil {
 		c.FlashErrorGeneric(err)
-		items = []note.Item{}
+		lots = []lot.Item{}
 	}
 
-	count, err := note.ByUserIDCount(c.DB, c.UserID)
+	count, err := lot.ByBlockIDCount(c.DB, c.Param("id"))
 	if err != nil {
 		c.FlashErrorGeneric(err)
 	}
@@ -50,8 +52,8 @@ func Index(w http.ResponseWriter, r *http.Request) {
 	// Calculate the number of pages.
 	p.CalculatePages(count)
 
-	v := c.View.New("note/index")
-	v.Vars["items"] = items
+	v := c.View.New("lot/index")
+	v.Vars["lots"] = lots
 	v.Vars["pagination"] = p
 	v.Render(w, r)
 }
@@ -60,7 +62,7 @@ func Index(w http.ResponseWriter, r *http.Request) {
 func Create(w http.ResponseWriter, r *http.Request) {
 	c := flight.Context(w, r)
 
-	v := c.View.New("note/create")
+	v := c.View.New("lot/create")
 	c.Repopulate(v.Vars, "name")
 	v.Render(w, r)
 }
@@ -73,16 +75,16 @@ func Store(w http.ResponseWriter, r *http.Request) {
 		Create(w, r)
 		return
 	}
-
-	_, err := note.Create(c.DB, r.FormValue("name"), c.UserID)
+	blockID := c.Param("id")
+	_, err := lot.Create(c.DB, r.FormValue("name"), c.Param("id"), c.UserID)
 	if err != nil {
 		c.FlashErrorGeneric(err)
 		Create(w, r)
 		return
 	}
 
-	c.FlashSuccess("Item added.")
-	c.Redirect(uri)
+	c.FlashSuccess("you lot added successfully.")
+	c.Redirect(parentURI + "/view/" + blockID)
 }
 
 // Show displays a single item.
@@ -92,31 +94,24 @@ func Show(w http.ResponseWriter, r *http.Request) {
 	// Create a pagination instance with a max of 10 results.
 	p := pagination.New(r, 10)
 
-	item, _, err := note.ByID(c.DB, c.Param("id"), c.UserID)
+	item, _, err := lot.ByID(c.DB, c.Param("id"), c.UserID)
 	if err != nil {
 		c.FlashErrorGeneric(err)
 		c.Redirect(uri)
 		return
 	}
 
-	items, _, err := note.ByUserIDPaginate(c.DB, c.UserID, p.PerPage, p.Offset)
+	items, _, err := lot.ByBlockIDPaginate(c.DB, c.Param("id"), p.PerPage, p.Offset)
 	if err != nil {
 		c.FlashErrorGeneric(err)
-		items = []note.Item{}
+		items = []lot.Item{}
 	}
 
-	comments, _, err := comment.ByNoteIDPaginate(c.DB, c.Param("id"), p.PerPage, p.Offset)
-	if err != nil {
-		c.FlashErrorGeneric(err)
-		comments = []comment.Item{}
-	}
-
-	v := c.View.New("note/show")
+	v := c.View.New("lot/show")
 	v.Vars["item"] = item
 
 	v.Vars["items"] = items
 	v.Vars["pagination"] = p
-	v.Vars["comments"] = comments
 	v.Render(w, r)
 
 }
@@ -125,14 +120,14 @@ func Show(w http.ResponseWriter, r *http.Request) {
 func Edit(w http.ResponseWriter, r *http.Request) {
 	c := flight.Context(w, r)
 
-	item, _, err := note.ByID(c.DB, c.Param("id"), c.UserID)
+	item, _, err := lot.ByID(c.DB, c.Param("id"), c.UserID)
 	if err != nil {
 		c.FlashErrorGeneric(err)
 		c.Redirect(uri)
 		return
 	}
 
-	v := c.View.New("note/edit")
+	v := c.View.New("lot/edit")
 	c.Repopulate(v.Vars, "name")
 	v.Vars["item"] = item
 	v.Render(w, r)
@@ -146,28 +141,40 @@ func Update(w http.ResponseWriter, r *http.Request) {
 		Edit(w, r)
 		return
 	}
+	item, _, err := lot.ByID(c.DB, c.Param("id"), c.UserID)
+	if err != nil {
+		c.FlashErrorGeneric(err)
+		c.Redirect(uri)
+		return
+	}
 
-	_, err := note.Update(c.DB, r.FormValue("name"), c.Param("id"), c.UserID)
+	_, err = lot.Update(c.DB, r.FormValue("name"), c.Param("id"), c.UserID)
 	if err != nil {
 		c.FlashErrorGeneric(err)
 		Edit(w, r)
 		return
 	}
-
-	c.FlashSuccess("Item updated.")
-	c.Redirect(uri)
+	c.FlashSuccess("you lot updated successfully.")
+	c.Redirect(parentURI + "/view/" + strconv.FormatUint(uint64(item.BlockID), 10))
 }
 
 // Destroy handles the delete form submission.
 func Destroy(w http.ResponseWriter, r *http.Request) {
 	c := flight.Context(w, r)
 
-	_, err := note.DeleteSoft(c.DB, c.Param("id"), c.UserID)
+	item, _, err := lot.ByID(c.DB, c.Param("id"), c.UserID)
+	if err != nil {
+		c.FlashErrorGeneric(err)
+		c.Redirect(uri)
+		return
+	}
+
+	_, err = lot.DeleteSoft(c.DB, c.Param("id"), c.UserID)
 	if err != nil {
 		c.FlashErrorGeneric(err)
 	} else {
-		c.FlashNotice("Item deleted.")
+		c.FlashSuccess("you lot deleted successfully.")
 	}
 
-	c.Redirect(uri)
+	c.Redirect(parentURI + "/view/" + strconv.FormatUint(uint64(item.BlockID), 10))
 }

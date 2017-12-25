@@ -1,5 +1,5 @@
-// Package comment provides access to the comment table in the MySQL database.
-package comment
+// Package lot provides access to the lot table in the MySQL database.
+package lot
 
 import (
 	"database/sql"
@@ -10,14 +10,14 @@ import (
 
 var (
 	// table is the table name.
-	table = "comment"
+	table = "lot"
 )
 
 // Item defines the model.
 type Item struct {
 	ID        uint32         `db:"id"`
 	Name      string         `db:"name"`
-	NoteID    uint32         `db:"note_id"`
+	BlockID   uint32         `db:"block_id"`
 	UserID    uint32         `db:"user_id"`
 	CreatedAt mysql.NullTime `db:"created_at"`
 	UpdatedAt mysql.NullTime `db:"updated_at"`
@@ -35,7 +35,7 @@ type Connection interface {
 func ByID(db Connection, ID string, userID string) (Item, bool, error) {
 	result := Item{}
 	err := db.Get(&result, fmt.Sprintf(`
-		SELECT id, name, note_id, user_id, created_at, updated_at, deleted_at
+		SELECT id, name, block_id, user_id, created_at, updated_at, deleted_at
 		FROM %v
 		WHERE id = ?
 			AND user_id = ?
@@ -46,55 +46,55 @@ func ByID(db Connection, ID string, userID string) (Item, bool, error) {
 	return result, err == sql.ErrNoRows, err
 }
 
-// ByNoteID gets all items for a note.
-func ByNoteID(db Connection, noteID string) ([]Item, bool, error) {
+// ByBlockID gets all items for a block.
+func ByBlockID(db Connection, blockID string) ([]Item, bool, error) {
 	var result []Item
 	err := db.Select(&result, fmt.Sprintf(`
 		SELECT id, name, user_id, created_at, updated_at, deleted_at
 		FROM %v
-		WHERE note_id = ?
+		WHERE block_id = ?
 			AND deleted_at IS NULL
 		`, table),
-		noteID)
+		blockID)
 	return result, err == sql.ErrNoRows, err
 }
 
-// ByNoteIDPaginate gets items for a user based on page and max variables.
-func ByNoteIDPaginate(db Connection, noteID string, max int, page int) ([]Item, bool, error) {
+// ByBlockIDPaginate gets items for a user based on page and max variables.
+func ByBlockIDPaginate(db Connection, blockID string, max int, page int) ([]Item, bool, error) {
 	var result []Item
 	err := db.Select(&result, fmt.Sprintf(`
 		SELECT id, name, user_id, created_at, updated_at, deleted_at
 		FROM %v
-		WHERE  note_id = ?
+		WHERE  block_id = ?
 			AND deleted_at IS NULL
 		LIMIT %v OFFSET %v
 		`, table, max, page),
-		noteID)
+		blockID)
 	return result, err == sql.ErrNoRows, err
 }
 
-// ByNoteIDCount counts the number of items for a user.
-func ByNoteIDCount(db Connection, noteID string) (int, error) {
+// ByBlockIDCount counts the number of items for a user.
+func ByBlockIDCount(db Connection, blockID string) (int, error) {
 	var result int
 	err := db.Get(&result, fmt.Sprintf(`
 		SELECT count(*)
 		FROM %v
-		WHERE note_id = ?
+		WHERE block_id = ?
 			AND deleted_at IS NULL
 		`, table),
-		noteID)
+		blockID)
 	return result, err
 }
 
 // Create adds an item.
-func Create(db Connection, name string, noteID string, userID string) (sql.Result, error) {
+func Create(db Connection, name string, blockID string, userID string) (sql.Result, error) {
 	result, err := db.Exec(fmt.Sprintf(`
 		INSERT INTO %v
-		(name, note_id, user_id)
+		(name, block_id, user_id)
 		VALUES
 		(?,?,?)
 		`, table),
-		name, noteID, userID)
+		name, blockID, userID)
 	return result, err
 }
 
@@ -113,14 +113,14 @@ func Update(db Connection, name string, ID string, userID string) (sql.Result, e
 }
 
 // DeleteHard removes an item.
-func DeleteHard(db Connection, ID string, noteID string) (sql.Result, error) {
+func DeleteHard(db Connection, ID string, blockID string) (sql.Result, error) {
 	result, err := db.Exec(fmt.Sprintf(`
 		DELETE FROM %v
 		WHERE id = ?
-			AND note_id = ?
+			AND block_id = ?
 			AND deleted_at IS NULL
 		`, table),
-		ID, noteID)
+		ID, blockID)
 	return result, err
 }
 

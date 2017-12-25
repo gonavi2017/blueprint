@@ -1,5 +1,5 @@
-// Package note provides access to the note table in the MySQL database.
-package note
+// Package block provides access to the block table in the MySQL database.
+package block
 
 import (
 	"database/sql"
@@ -10,7 +10,7 @@ import (
 
 var (
 	// table is the table name.
-	table = "note"
+	table = "block"
 )
 
 // Item defines the model.

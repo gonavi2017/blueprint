@@ -1,29 +1,28 @@
-// Package comment provides a simple CRUD application in a web page.
-package comment
+// Package block provides a simple CRUD application in a web page.
+package block
 
 import (
 	"net/http"
 
 	"github.com/gonavi2017/blueprint/lib/flight"
 	"github.com/gonavi2017/blueprint/middleware/acl"
-	"github.com/gonavi2017/blueprint/model/comment"
+	"github.com/gonavi2017/blueprint/model/block"
+	"github.com/gonavi2017/blueprint/model/lot"
 
 	"github.com/gonavi2017/core/pagination"
 	"github.com/gonavi2017/core/router"
-	"strconv"
 )
 
 var (
-	parentURI = "/note"
-	uri       = "/comment"
+	uri = "/block"
 )
 
 // Load the routes.
 func Load() {
 	c := router.Chain(acl.DisallowAnon)
 	router.Get(uri, Index, c...)
-	router.Get(uri+"/create/:id", Create, c...)
-	router.Post(uri+"/create/:id", Store, c...)
+	router.Get(uri+"/create", Create, c...)
+	router.Post(uri+"/create", Store, c...)
 	router.Get(uri+"/view/:id", Show, c...)
 	router.Get(uri+"/edit/:id", Edit, c...)
 	router.Patch(uri+"/edit/:id", Update, c...)
@@ -37,13 +36,13 @@ func Index(w http.ResponseWriter, r *http.Request) {
 	// Create a pagination instance with a max of 10 results.
 	p := pagination.New(r, 10)
 
-	comments, _, err := comment.ByNoteIDPaginate(c.DB, c.Param("id"), p.PerPage, p.Offset)
+	items, _, err := block.ByUserIDPaginate(c.DB, c.UserID, p.PerPage, p.Offset)
 	if err != nil {
 		c.FlashErrorGeneric(err)
-		comments = []comment.Item{}
+		items = []block.Item{}
 	}
 
-	count, err := comment.ByNoteIDCount(c.DB, c.Param("id"))
+	count, err := block.ByUserIDCount(c.DB, c.UserID)
 	if err != nil {
 		c.FlashErrorGeneric(err)
 	}
@@ -51,8 +50,8 @@ func Index(w http.ResponseWriter, r *http.Request) {
 	// Calculate the number of pages.
 	p.CalculatePages(count)
 
-	v := c.View.New("comment/index")
-	v.Vars["comments"] = comments
+	v := c.View.New("block/index")
+	v.Vars["items"] = items
 	v.Vars["pagination"] = p
 	v.Render(w, r)
 }
@@ -61,7 +60,7 @@ func Index(w http.ResponseWriter, r *http.Request) {
 func Create(w http.ResponseWriter, r *http.Request) {
 	c := flight.Context(w, r)
 
-	v := c.View.New("comment/create")
+	v := c.View.New("block/create")
 	c.Repopulate(v.Vars, "name")
 	v.Render(w, r)
 }
@@ -74,16 +73,16 @@ func Store(w http.ResponseWriter, r *http.Request) {
 		Create(w, r)
 		return
 	}
-	noteID := c.Param("id")
-	_, err := comment.Create(c.DB, r.FormValue("name"), c.Param("id"), c.UserID)
+
+	_, err := block.Create(c.DB, r.FormValue("name"), c.UserID)
 	if err != nil {
 		c.FlashErrorGeneric(err)
 		Create(w, r)
 		return
 	}
 
-	c.FlashSuccess("you comment added successfully.")
-	c.Redirect(parentURI + "/view/" + noteID)
+	c.FlashSuccess("Item added.")
+	c.Redirect(uri)
 }
 
 // Show displays a single item.
@@ -93,24 +92,31 @@ func Show(w http.ResponseWriter, r *http.Request) {
 	// Create a pagination instance with a max of 10 results.
 	p := pagination.New(r, 10)
 
-	item, _, err := comment.ByID(c.DB, c.Param("id"), c.UserID)
+	item, _, err := block.ByID(c.DB, c.Param("id"), c.UserID)
 	if err != nil {
 		c.FlashErrorGeneric(err)
 		c.Redirect(uri)
 		return
 	}
 
-	items, _, err := comment.ByNoteIDPaginate(c.DB, c.Param("id"), p.PerPage, p.Offset)
+	items, _, err := block.ByUserIDPaginate(c.DB, c.UserID, p.PerPage, p.Offset)
 	if err != nil {
 		c.FlashErrorGeneric(err)
-		items = []comment.Item{}
+		items = []block.Item{}
 	}
 
-	v := c.View.New("comment/show")
+	lots, _, err := lot.ByBlockIDPaginate(c.DB, c.Param("id"), p.PerPage, p.Offset)
+	if err != nil {
+		c.FlashErrorGeneric(err)
+		lots = []lot.Item{}
+	}
+
+	v := c.View.New("block/show")
 	v.Vars["item"] = item
 
 	v.Vars["items"] = items
 	v.Vars["pagination"] = p
+	v.Vars["lots"] = lots
 	v.Render(w, r)
 
 }
@@ -119,14 +125,14 @@ func Show(w http.ResponseWriter, r *http.Request) {
 func Edit(w http.ResponseWriter, r *http.Request) {
 	c := flight.Context(w, r)
 
-	item, _, err := comment.ByID(c.DB, c.Param("id"), c.UserID)
+	item, _, err := block.ByID(c.DB, c.Param("id"), c.UserID)
 	if err != nil {
 		c.FlashErrorGeneric(err)
 		c.Redirect(uri)
 		return
 	}
 
-	v := c.View.New("comment/edit")
+	v := c.View.New("block/edit")
 	c.Repopulate(v.Vars, "name")
 	v.Vars["item"] = item
 	v.Render(w, r)
@@ -140,40 +146,28 @@ func Update(w http.ResponseWriter, r *http.Request) {
 		Edit(w, r)
 		return
 	}
-	item, _, err := comment.ByID(c.DB, c.Param("id"), c.UserID)
-	if err != nil {
-		c.FlashErrorGeneric(err)
-		c.Redirect(uri)
-		return
-	}
 
-	_, err = comment.Update(c.DB, r.FormValue("name"), c.Param("id"), c.UserID)
+	_, err := block.Update(c.DB, r.FormValue("name"), c.Param("id"), c.UserID)
 	if err != nil {
 		c.FlashErrorGeneric(err)
 		Edit(w, r)
 		return
 	}
-	c.FlashSuccess("you comment updated successfully.")
-	c.Redirect(parentURI + "/view/" + strconv.FormatUint(uint64(item.NoteID), 10))
+
+	c.FlashSuccess("Item updated.")
+	c.Redirect(uri)
 }
 
 // Destroy handles the delete form submission.
 func Destroy(w http.ResponseWriter, r *http.Request) {
 	c := flight.Context(w, r)
 
-	item, _, err := comment.ByID(c.DB, c.Param("id"), c.UserID)
-	if err != nil {
-		c.FlashErrorGeneric(err)
-		c.Redirect(uri)
-		return
-	}
-
-	_, err = comment.DeleteSoft(c.DB, c.Param("id"), c.UserID)
+	_, err := block.DeleteSoft(c.DB, c.Param("id"), c.UserID)
 	if err != nil {
 		c.FlashErrorGeneric(err)
 	} else {
-		c.FlashSuccess("you comment deleted successfully.")
+		c.FlashNotice("Item deleted.")
 	}
 
-	c.Redirect(parentURI + "/view/" + strconv.FormatUint(uint64(item.NoteID), 10))
+	c.Redirect(uri)
 }
