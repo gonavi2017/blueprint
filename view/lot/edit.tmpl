@@ -10,15 +10,6 @@
 			<label for="name">Item</label>
 			<!-- Name Section -->
 			<div><textarea rows="5" class="form-control" id="name" name="name" placeholder="Type your text here..." />{{TEXTAREA "name" .item.Name .}}</textarea></div>
-
-			<!-- Rating Section -->
-			<ul class="list-inline">
-                <li class="list-inline-item"><button class="btn btn-green">Green</button></li>
-                <li class="list-inline-item"><button class="btn btn-warning">Yellow</button></li>
-                <li class="list-inline-item"><button class="btn btn-danger">Red</button></li>
-			</ul>    
-
-			<input type="text" class="form-control" id="category" palceholder="Category">
 		</div>
 
 		
@@ -31,6 +22,20 @@
 		</a>
 		
 		<input type="hidden" name="_token" value="{{$.token}}">
+		<ul class="nav nav-tabs">
+		{{range $n := .Dashboard.Tabs}}
+			{{if .Active}}
+				<li class = "active">
+			{{else}}
+				<li>
+			{{end}}
+			<a href="{{.ID}}">{{.Name}}</a></li>
+			{{if .Active}}
+				<p> This is {{.Description}} </p>
+			{{end}}
+		{{end}}
+		</ul>
+
 	</form>
 	
 	{{template "footer" .}}

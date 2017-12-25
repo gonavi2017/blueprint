@@ -23,6 +23,20 @@
 	
   
 	{{range $n := .items}}
+        <ul class="nav nav-tabs">
+        {{range $n := .Dashboard.Tabs}}
+            {{if .Active}}
+                <li class = "active">
+            {{else}}
+                <li>
+            {{end}}
+            <a href="{{.ID}}">{{.Name}}</a></li>
+            {{if .Active}}
+                <p> This is {{.Description}} </p>
+            {{end}}
+        {{end}}
+        </ul>
+
 	<div class="panel panel-default">
       
       <div class="panel-heading row">

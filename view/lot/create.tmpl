@@ -7,19 +7,21 @@
 	
 	<form method="post" action="{{$.CurrentURI}}">
 		<div class="form-group">
-			<label for="category">Category</label>
-			<input type="text" class="form-control" id="category" placeholder="Category">
-			
-			<!-- Rating Section -->
-			<label for="ratings">Ratings</label>
-			<ul class="list-inline" id="ratings">
-                <li class="list-inline-item"><button class="btn btn-success btn-circle">Green</button></li>
-                <li class="list-inline-item"><button class="btn btn-warning btn-circle">Yellow</button></li>
-                <li class="list-inline-item"><button class="btn btn-danger btn-circle">Red</button></li>
-			</ul>    
-
 			<label for="name">Lot</label>
 			<div><textarea rows="3" class="form-control" id="name" name="name" placeholder="Type your text here..." />{{TEXTAREA "name" .item.Name .}}</textarea></div>
+			<ul class="nav nav-tabs">
+			{{range $n := .Dashboard.Tabs}}
+				{{if .Active}}
+					<li class = "active">
+				{{else}}
+					<li>
+				{{end}}
+				<a href="{{.ID}}">{{.Name}}</a></li>
+				{{if .Active}}
+					<p> This is {{.Description}} </p>
+				{{end}}
+			{{end}}
+			</ul>
 		</div>
 
 		<button type="submit" class="btn btn-success" title="Save" />
@@ -29,7 +31,7 @@
 		<a title="Back" class="btn btn-default" role="button" href="{{$.ParentURI}}">
 			<span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span> Back
 		</a>
-		
+
 		<input type="hidden" name="_token" value="{{$.token}}">
 	</form>
 	

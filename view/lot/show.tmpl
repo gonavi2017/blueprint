@@ -8,6 +8,20 @@
 		    </div>
 		    <div class="container">
 	    	{{range $n := .lots}}
+			<ul class="nav nav-tabs">
+			{{range $n := .Dashboard.Tabs}}
+				{{if .Active}}
+					<li class = "active">
+				{{else}}
+					<li>
+				{{end}}
+				<a href="{{.ID}}">{{.Name}}</a></li>
+				{{if .Active}}
+					<p> This is {{.Description}} </p>
+				{{end}}
+			{{end}}
+			</ul>
+
 	    	  <div class="row"> 
                     <div class="col-xs-12 col-sm-3 col-md-3">
 	    		<div class="pull-left meta">

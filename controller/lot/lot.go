@@ -75,6 +75,8 @@ func Store(w http.ResponseWriter, r *http.Request) {
 		Create(w, r)
 		return
 	}
+	//json
+	//encrypt
 	blockID := c.Param("id")
 	_, err := lot.Create(c.DB, r.FormValue("name"), c.Param("id"), c.UserID)
 	if err != nil {
@@ -107,6 +109,8 @@ func Show(w http.ResponseWriter, r *http.Request) {
 		items = []lot.Item{}
 	}
 
+	//decrypt
+	//json
 	v := c.View.New("lot/show")
 	v.Vars["item"] = item
 

@@ -30,12 +30,12 @@ func Modify(w http.ResponseWriter, r *http.Request, v *view.Info) {
 	result := Item{}
 	// Set the AuthLevel to auth if the user is logged in
 	if c.Sess.Values["id"] != nil {
-		result.Tabs = append(result.Tabs, Tab{0, "FUT", "This is future dashboard", true})
-		result.Tabs = append(result.Tabs, Tab{1, "OPT", "This is option dashboard", false})
-		result.Tabs = append(result.Tabs, Tab{2, "FX", "This is foriegn exchange dashboard", false})
-		result.Tabs = append(result.Tabs, Tab{3, "FI", "This is fixed income dashboard", false})
-		result.header = "MARKET"
-		result.footer = "US"
+		result.Tabs = append(result.Tabs, Tab{0, "Financial", "This are Financial details", true})
+		result.Tabs = append(result.Tabs, Tab{1, "Marriage", "This are Marriage details", false})
+		result.Tabs = append(result.Tabs, Tab{2, "Property", "This are Property details", false})
+		result.Tabs = append(result.Tabs, Tab{3, "Health", "This are Health details", false})
+		result.header = "Personal"
+		result.footer = "Record"
 		v.Vars["Dashboard"] = result
 	} else {
 		v.Vars["Dashboard"] = result
