@@ -1,0 +1,81 @@
+{{define "financial"}}
+<form method="form-horizontal post" action="{{$.CurrentURI}}create/{{.ID}}">
+	<fieldset>
+	<!-- Form Name -->
+	<legend>Financial Details</legend>
+
+			<!-- Text input-->
+			<div class="form-group">
+				<label class="col-md-12 control-label" for="bank_address">Bank Address</label>  
+				<div class="col-md-5">
+					<input id="bank_address" name="bank_address" type="text" placeholder="Bank Address" class="form-control input-md" required="">
+					<span class="help-block">Bank Address</span>  
+				</div>
+			</div>
+
+			<!-- Text input-->
+			<div class="form-group">
+				<label class="col-md-12 control-label" for="bank_code">Bank Code</label>  
+					<div class="col-md-5">
+						<input id="bank_code" name="bank_code" type="text" placeholder="Bank Code" class="form-control input-md" required="">
+						<span class="help-block">Bank Code</span>  
+					</div>
+			</div>
+
+			<!-- Text input-->
+			<div class="form-group">
+				<label class="col-md-12 control-label" for="bank_name">Bank Name</label>  
+					<div class="col-md-5">
+						<input id="bank_name" name="bank_name" type="text" placeholder="Bank Name" class="form-control input-md" required="">
+						<span class="help-block">Bank Name</span>  
+					</div>
+			</div>
+
+			<!-- Text input-->
+			<div class="form-group">
+				<label class="col-md-12 control-label" for="saving_account_number">Saving Account Number </label>  
+					<div class="col-md-5">
+						<input id="saving_account_number" name="saving_account_number" type="text" placeholder="Saving Account Number" class="form-control input-md" required="">
+						<span class="help-block">Saving Account Number</span>  
+					</div>
+			</div>
+
+			<!-- Text input-->
+			<div class="form-group">
+				<label class="col-md-12 control-label" for="Checking_account_number">Checking Account Number</label>  
+					<div class="col-md-5">
+						<input id="Checking_account_number" name="Checking_account_number" type="text" placeholder="Checking Account Number" class="form-control input-md" required="">
+						<span class="help-block">Checking Account Number</span>  
+					</div>
+			</div>
+
+
+			<!-- Date input-->
+			<div class="col-md-12">
+				<div class="row">
+					<div class="form-group">
+						<label class="col-md-12 control-label" for="year">Year</label>  
+						<div class="col-md-3">
+							<input id="year" name="year" type="text" placeholder="YYYY/MM/DD" class="form-control input-md">  
+						</div>
+					</div>
+				</div>	
+			</div>
+
+			<div class="form-group">
+				<label for="name">Block</label>
+				<!-- <div><textarea rows="3" class="form-control" id="name" name="name" placeholder="Type your text here..." />{{TEXTAREA "name" .item.Name .}}</textarea></div> -->
+				<div><textarea rows="3" class="form-control" id="name" name="name" placeholder="Type your text here..." /></textarea></div>
+			</div>	
+				<!-- Text input-->
+				<button type="submit" class="btn btn-success" title="Save" />
+					<span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Save
+				</button>
+							
+				<a title="Back" class="btn btn-default" role="button" href="{{$.ParentURI}}">
+					<span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span> Back
+				</a>
+				<input type="hidden" name="_token" value="{{$.token}}">
+	</fieldset>
+</form>
+{{end}}								

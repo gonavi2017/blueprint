@@ -5,6 +5,7 @@ import (
 	"github.com/gonavi2017/blueprint/controller/about"
 	"github.com/gonavi2017/blueprint/controller/block"
 	"github.com/gonavi2017/blueprint/controller/cart"
+	"github.com/gonavi2017/blueprint/controller/dashboard"
 	"github.com/gonavi2017/blueprint/controller/debug"
 	"github.com/gonavi2017/blueprint/controller/home"
 	"github.com/gonavi2017/blueprint/controller/login"
@@ -26,4 +27,5 @@ func LoadRoutes() {
 	lot.Load()
 	block.Load()
 	cart.Load()
+	dashboard.Load()
 }

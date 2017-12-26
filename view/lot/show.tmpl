@@ -1,53 +1,31 @@
 {{define "show"}}
 <div class="row">
-			<div class="col-md-12 col-lg-12 col-sm-12 ">
-				<h4>Lots</h4>
-				<a title="Add" class="btn btn-primary pull-left btn-sm" role="button" href="{{$.BaseURI}}lot/create/{{.item.ID}}">
-		          <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>Add your Lot
-		      	</a>
-		    </div>
-		    <div class="container">
-	    	{{range $n := .lots}}
-			<ul class="nav nav-tabs">
-			{{range $n := .Dashboard.Tabs}}
-				{{if .Active}}
-					<li class = "active">
-				{{else}}
-					<li>
-				{{end}}
-				<a href="{{.ID}}">{{.Name}}</a></li>
-				{{if .Active}}
-					<p> This is {{.Description}} </p>
-				{{end}}
-			{{end}}
-			</ul>
-
-	    	  <div class="row"> 
-                    <div class="col-xs-12 col-sm-3 col-md-3">
-	    		<div class="pull-left meta">
-		           	<div class="title h5">
-						<a href="#"><b>Kshitiz Sharma</b></a>
-		                    {{.Name}}     
-		              </div>
-		                        <h6 class="text-muted time">{{PRETTYTIME .CreatedAt .UpdatedAt}}</h6>
-		                   		
-		                   		<a title="Edit" href="{{$.BaseURI}}lot/edit/{{.ID}}">
-									Edit
-								</a>
-
-								<form class="button-form" method="post" action="{{$.BaseURI}}lot/{{.ID}}?_method=delete">
-									<a onclick="return confirm('Are you sure?')" type="submit" />
-										Delete
-									</a>
-									<input type="hidden" name="_token" value="{{$.token}}">
-								</form>
-								</span>
-							</div>
-						 
-				    </div>
-				    </div>
-				    <hr>
-		    {{end}}
-	</div>
-	</div>
+    <div class="col-md-12 col-lg-12 col-sm-12 ">
+        <h4>Lots</h4>
+        <a title="Add" class="btn btn-primary pull-left btn-sm" role="button" href="{{$.BaseURI}}lot/create/{{.item.ID}}">
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>Add your Lot
+        </a>
+    </div>
+    <div class="container">
+        {{range $n := .lots}}
+        <div class="row">
+            <div class="col-xs-12 col-sm-3 col-md-3">
+                <div class="pull-left meta">
+                    <div class="title h5">
+                        <a>{{.UserID}}:{{.Name}}</a>
+                    </div>
+                    <h6 class="text-muted time">{{PRETTYTIME .CreatedAt .UpdatedAt}}</h6>
+                    <a title="Edit" href="{{$.BaseURI}}lot/edit/{{.ID}}">
+                        Edit
+                    </a>
+					  <form class="button-form" method="post" action="{{$.BaseURI}}lot/{{.ID}}?_method=delete">
+                        <button onclick="return confirm('Are you sure?')" type="submit"/>Delete</button>
+                        <input type="hidden" name="_token" value="{{$.token}}">
+                    </form>
+                </div>
+            </div>
+        </div>
+        <hr> {{end}}
+    </div>
+</div>
 {{end}}
