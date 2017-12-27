@@ -4,7 +4,7 @@ package home
 import (
 	"net/http"
 
-	"github.com/gonavi2017/blueprint/controller/dashboard"
+	"github.com/gonavi2017/blueprint/controller/form"
 	"github.com/gonavi2017/blueprint/lib/flight"
 
 	"github.com/gonavi2017/core/router"
@@ -23,8 +23,8 @@ func Index(w http.ResponseWriter, r *http.Request) {
 	if c.Sess.Values["id"] != nil {
 		v.Vars["first_name"] = c.Sess.Values["first_name"]
 	}
-	dashboards, p := dashboard.Get(w, r)
-	v.Vars["dashboards"] = dashboards
+	forms, p := form.Get(w, r)
+	v.Vars["forms"] = forms
 	v.Vars["pagination"] = p
 	v.Render(w, r)
 }

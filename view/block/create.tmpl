@@ -18,17 +18,11 @@
 		<div class="col-md-12 col-sm-12 col-lg-12">
 			{{range $n := .Dashboard.Tabs}}
 				{{if .Active}}
-					{{if eq .ID 0}}
+					{{if eq .ID 1}}
 						{{template "financial"}}
 					{{end}}
 					{{if eq .ID 1}}
 						{{template "marriage"}}
-					{{end}}
-					{{if eq .ID 2}}
-						{{template "property"}}
-					{{end}}
-					{{if eq .ID 3}}
-						{{template "medical"}}
 					{{end}}
 				{{end}}
 			{{end}}

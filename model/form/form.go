@@ -1,5 +1,5 @@
-// Package dashboard provides access to the dashboard table in the MySQL database.
-package dashboard
+// Package form provides access to the form table in the MySQL database.
+package form
 
 import (
 	"database/sql"
@@ -10,7 +10,45 @@ import (
 
 var (
 	// table is the table name.
-	table = "dashboard"
+	table = "form"
+)
+
+//ElementType is the HTML type on the form
+type ElementType int
+
+const (
+	//Legend defines
+	Legend = ElementType(iota)
+	//ButtonDouble defines
+	ButtonDouble
+	//Button defines
+	Button
+	//FileButton defines
+	FileButton
+	//SelectMultiple defines
+	SelectMultiple
+	//SelectBasic defines
+	SelectBasic
+	//MultipleCheckboxesInLine defines
+	MultipleCheckboxesInLine
+	//MultipleCheckboxes defines
+	MultipleCheckboxes
+	//MultipleRadiosInLine defines
+	MultipleRadiosInLine
+	//MultipleRadios defines
+	MultipleRadios
+	//TextArea defines
+	TextArea
+	//PrependedCheckbox defines
+	PrependedCheckbox
+	//ButtonDropDown defines
+	ButtonDropDown
+	//PasswordInput defines
+	PasswordInput
+	//SearchInput defines
+	SearchInput
+	//TextInput defines
+	TextInput
 )
 
 // Item defines the model.
@@ -31,7 +69,7 @@ type Connection interface {
 	Select(dest interface{}, query string, args ...interface{}) error
 }
 
-// ByDescription gets dashboard information from description.
+// ByDescription gets form information from description.
 func ByDescription(db Connection, description string) ([]Item, bool, error) {
 	var result []Item
 	err := db.Select(&result, fmt.Sprintf(`

@@ -18,6 +18,7 @@ func init() {
 	log.SetFlags(log.Lshortfile)
 
 	// Use all CPU cores
+	log.Printf("NumCPU = %d", runtime.NumCPU())
 	runtime.GOMAXPROCS(runtime.NumCPU())
 }
 

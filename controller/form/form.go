@@ -1,5 +1,5 @@
-// Package dashboard provides a simple CRUD application in a web page.
-package dashboard
+// Package form provides a simple CRUD application in a web page.
+package form
 
 import (
 	"net/http"
@@ -7,13 +7,13 @@ import (
 
 	"github.com/gonavi2017/blueprint/lib/flight"
 	"github.com/gonavi2017/blueprint/middleware/acl"
-	"github.com/gonavi2017/blueprint/model/dashboard"
+	"github.com/gonavi2017/blueprint/model/form"
 	"github.com/gonavi2017/core/pagination"
 	"github.com/gonavi2017/core/router"
 )
 
 var (
-	uri = "/dashboard"
+	uri = "/form"
 )
 
 // Load the routes.
@@ -29,26 +29,26 @@ func Load() {
 }
 
 // Get displays the items.
-func Get(w http.ResponseWriter, r *http.Request) ([]dashboard.Item, *pagination.Info) {
+func Get(w http.ResponseWriter, r *http.Request) ([]form.Item, *pagination.Info) {
 	c := flight.Context(w, r)
 
 	// Create a pagination instance with a max of 10 results.
 	p := pagination.New(r, 10)
 
-	dashboards, _, err := dashboard.ByDescriptionPaginate(c.DB, "These", p.PerPage, p.Offset)
+	forms, _, err := form.ByDescriptionPaginate(c.DB, "These", p.PerPage, p.Offset)
 	if err != nil {
 		c.FlashErrorGeneric(err)
-		dashboards = []dashboard.Item{}
+		forms = []form.Item{}
 	}
 
-	count, err := dashboard.ByDescriptionCount(c.DB, "These")
+	count, err := form.ByDescriptionCount(c.DB, "These")
 	if err != nil {
 		c.FlashErrorGeneric(err)
 	}
 
 	// Calculate the number of pages.
 	p.CalculatePages(count)
-	return dashboards, p
+	return forms, p
 }
 
 // Index displays the items.
@@ -58,13 +58,13 @@ func Index(w http.ResponseWriter, r *http.Request) {
 	// Create a pagination instance with a max of 10 results.
 	p := pagination.New(r, 10)
 
-	dashboards, _, err := dashboard.ByDescriptionPaginate(c.DB, "These", p.PerPage, p.Offset)
+	forms, _, err := form.ByDescriptionPaginate(c.DB, "These", p.PerPage, p.Offset)
 	if err != nil {
 		c.FlashErrorGeneric(err)
-		dashboards = []dashboard.Item{}
+		forms = []form.Item{}
 	}
 
-	count, err := dashboard.ByDescriptionCount(c.DB, "These")
+	count, err := form.ByDescriptionCount(c.DB, "These")
 	if err != nil {
 		c.FlashErrorGeneric(err)
 	}
@@ -72,8 +72,8 @@ func Index(w http.ResponseWriter, r *http.Request) {
 	// Calculate the number of pages.
 	p.CalculatePages(count)
 
-	v := c.View.New("dashboard/index")
-	v.Vars["dashboards"] = dashboards
+	v := c.View.New("form/index")
+	v.Vars["forms"] = forms
 	v.Vars["pagination"] = p
 	v.Render(w, r)
 }
@@ -99,30 +99,30 @@ func Show(w http.ResponseWriter, r *http.Request) {
 	// Create a pagination instance with a max of 10 results.
 	p := pagination.New(r, 10)
 
-	dashboards, _, err := dashboard.ByDescription(c.DB, "These")
+	forms, _, err := form.ByDescription(c.DB, "These")
 	if err != nil {
 		c.FlashErrorGeneric(err)
 		c.Redirect(uri)
 		return
 	}
 
-	dashboards, _, err = dashboard.ByDescriptionPaginate(c.DB, "These", p.PerPage, p.Offset)
+	forms, _, err = form.ByDescriptionPaginate(c.DB, "These", p.PerPage, p.Offset)
 	if err != nil {
 		c.FlashErrorGeneric(err)
-		dashboards = []dashboard.Item{}
+		forms = []form.Item{}
 	}
 
 	//decrypt
 	//json
-	for idx := range dashboards {
-		if c.Param("id") == strconv.FormatUint(uint64(dashboards[idx].ID), 10) {
-			dashboards[idx].StatusID = 1
+	for idx := range forms {
+		if c.Param("id") == strconv.FormatUint(uint64(forms[idx].ID), 10) {
+			forms[idx].StatusID = 1
 		} else {
-			dashboards[idx].StatusID = 0
+			forms[idx].StatusID = 0
 		}
 	}
-	v := c.View.New("dashboard/index")
-	v.Vars["dashboards"] = dashboards
+	v := c.View.New("form/index")
+	v.Vars["forms"] = forms
 	v.Vars["pagination"] = p
 	v.Render(w, r)
 

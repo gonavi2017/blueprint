@@ -1,11 +1,11 @@
-package dashboard_test
+package form_test
 
 import (
 	"fmt"
 	"os"
 	"testing"
 
-	"github.com/blue-jay/blueprint/model/dashboard"
+	"github.com/blue-jay/blueprint/model/form"
 	"github.com/blue-jay/blueprint/model/user"
 	"github.com/gonavi2017/core/storage/migration/mysql"
 
@@ -56,7 +56,7 @@ func TestComplete(t *testing.T) {
 	userID := fmt.Sprintf("%v", uID)
 
 	// Create a record
-	result, err = dashboard.Create(db, data, userID)
+	result, err = form.Create(db, data, userID)
 	if err != nil {
 		t.Error("could not create record:", err)
 	}
@@ -71,7 +71,7 @@ func TestComplete(t *testing.T) {
 	lastID := fmt.Sprintf("%v", ID)
 
 	// Select a record
-	record, _, err := dashboard.ByID(db, lastID, userID)
+	record, _, err := form.ByID(db, lastID, userID)
 	if err != nil {
 		t.Error("could not retrieve record:", err)
 	} else if record.Name != data {
@@ -79,13 +79,13 @@ func TestComplete(t *testing.T) {
 	}
 
 	// Update a record
-	result, err = dashboard.Update(db, dataNew, lastID, userID)
+	result, err = form.Update(db, dataNew, lastID, userID)
 	if err != nil {
 		t.Error("could not update record:", err)
 	}
 
 	// Select a record
-	record, _, err = dashboard.ByID(db, lastID, userID)
+	record, _, err = form.ByID(db, lastID, userID)
 	if err != nil {
 		t.Error("could not retrieve record:", err)
 	} else if record.Name != dataNew {
@@ -93,7 +93,7 @@ func TestComplete(t *testing.T) {
 	}
 
 	// Delete a record by ID
-	result, err = dashboard.DeleteSoft(db, lastID, userID)
+	result, err = form.DeleteSoft(db, lastID, userID)
 	if err != nil {
 		t.Error("could not delete record:", err)
 	}

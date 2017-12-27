@@ -1,5 +1,5 @@
-// Package dashboard adds content to the view template.
-package dashboard
+// Package form adds content to the view template.
+package form
 
 import (
 	"net/http"
@@ -8,7 +8,7 @@ import (
 	"github.com/gonavi2017/core/view"
 )
 
-//Tab contains dashboard information
+//Tab contains form information
 type Tab struct {
 	ID          uint32
 	Name        string
@@ -16,7 +16,7 @@ type Tab struct {
 	Active      bool
 }
 
-//Item contains dashboard information
+//Item contains form information
 type Item struct {
 	header string
 	Tabs   []Tab
@@ -36,8 +36,8 @@ func Modify(w http.ResponseWriter, r *http.Request, v *view.Info) {
 		result.Tabs = append(result.Tabs, Tab{3, "Health", "This are Health details", false})
 		result.header = "Personal"
 		result.footer = "Record"
-		v.Vars["Dashboard"] = result
+		v.Vars["form"] = result
 	} else {
-		v.Vars["Dashboard"] = result
+		v.Vars["form"] = result
 	}
 }

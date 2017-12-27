@@ -50,12 +50,12 @@ VALUES
 UNLOCK TABLES;
 
 
-# Dump of table dashboard
+# Dump of table form
 # ------------------------------------------------------------
 
-DROP TABLE IF EXISTS `dashboard`;
+DROP TABLE IF EXISTS `form`;
 
-CREATE TABLE `dashboard` (
+CREATE TABLE `form` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   `description` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
@@ -64,19 +64,19 @@ CREATE TABLE `dashboard` (
   `updated_at` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `fk_dashboard_status` (`status_id`),
-  CONSTRAINT `fk_dashboard_status` FOREIGN KEY (`status_id`) REFERENCES `status` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  KEY `fk_form_status` (`status_id`),
+  CONSTRAINT `fk_form_status` FOREIGN KEY (`status_id`) REFERENCES `status` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-LOCK TABLES `dashboard` WRITE;
-/*!40000 ALTER TABLE `dashboard` DISABLE KEYS */;
+LOCK TABLES `form` WRITE;
+/*!40000 ALTER TABLE `form` DISABLE KEYS */;
 
-INSERT INTO `dashboard` (`id`, `name`, `description`, `status_id`, `created_at`, `updated_at`, `deleted_at`)
+INSERT INTO `form` (`id`, `name`, `description`, `status_id`, `created_at`, `updated_at`, `deleted_at`)
 VALUES
 	(1,'Financial','These',1,'2017-12-25 20:34:57','2017-12-25 20:54:51',NULL),
 	(2,'Marriage','These',1,'2017-12-25 20:35:16','2017-12-25 20:54:57',NULL);
 
-/*!40000 ALTER TABLE `dashboard` ENABLE KEYS */;
+/*!40000 ALTER TABLE `form` ENABLE KEYS */;
 UNLOCK TABLES;
 
 
@@ -94,7 +94,7 @@ CREATE TABLE `form` (
   `updated_at` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `fk_dashboard_status` (`status_id`),
+  KEY `fk_form_status` (`status_id`),
   CONSTRAINT `form_ibfk_1` FOREIGN KEY (`status_id`) REFERENCES `status` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
