@@ -6,6 +6,8 @@ import (
 	"fmt"
 
 	"github.com/go-sql-driver/mysql"
+	"github.com/gonavi2017/blueprint/model/field"
+	"github.com/gonavi2017/blueprint/model/field_type"
 )
 
 var (
@@ -60,6 +62,8 @@ type Item struct {
 	CreatedAt   mysql.NullTime `db:"created_at"`
 	UpdatedAt   mysql.NullTime `db:"updated_at"`
 	DeletedAt   mysql.NullTime `db:"deleted_at"`
+	Fields      []field.Item
+	FieldTypes  []field_type.Item
 }
 
 // Connection is an interface for making queries.

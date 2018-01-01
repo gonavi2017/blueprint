@@ -22,22 +22,8 @@
 		</a>
 		
 		<input type="hidden" name="_token" value="{{$.token}}">
-		<ul class="nav nav-tabs">
-		{{range $n := .Dashboard.Tabs}}
-			{{if .Active}}
-				<li class = "active">
-			{{else}}
-				<li>
-			{{end}}
-			<a href="{{.ID}}">{{.Name}}</a></li>
-			{{if .Active}}
-				<p> This is {{.Description}} </p>
-			{{end}}
-		{{end}}
-		</ul>
-
+			{{template "index" .}}
 	</form>
-	
 	{{template "footer" .}}
 {{end}}
 {{define "foot"}}{{end}}

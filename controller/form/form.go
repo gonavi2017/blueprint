@@ -7,6 +7,8 @@ import (
 
 	"github.com/gonavi2017/blueprint/lib/flight"
 	"github.com/gonavi2017/blueprint/middleware/acl"
+	"github.com/gonavi2017/blueprint/model/field"
+	"github.com/gonavi2017/blueprint/model/field_type"
 	"github.com/gonavi2017/blueprint/model/form"
 	"github.com/gonavi2017/core/pagination"
 	"github.com/gonavi2017/core/router"
@@ -28,8 +30,31 @@ func Load() {
 	router.Delete(uri+"/:id", Destroy, c...)
 }
 
-// Get displays the items.
-func Get(w http.ResponseWriter, r *http.Request) ([]form.Item, *pagination.Info) {
+// GetFieldTypes displays the items.
+func GetFieldTypes(w http.ResponseWriter, r *http.Request) []field_type.Item {
+	c := flight.Context(w, r)
+	fieldTypes, _, err := field_type.All(c.DB)
+	if err != nil {
+		c.FlashErrorGeneric(err)
+		fieldTypes = []field_type.Item{}
+	}
+	return fieldTypes
+}
+
+// GetFields displays the items.
+func GetFields(w http.ResponseWriter, r *http.Request) []field.Item {
+	c := flight.Context(w, r)
+
+	fields, _, err := field.All(c.DB)
+	if err != nil {
+		c.FlashErrorGeneric(err)
+		fields = []field.Item{}
+	}
+	return fields
+}
+
+// GetForms displays the items.
+func GetForms(w http.ResponseWriter, r *http.Request) ([]form.Item, *pagination.Info) {
 	c := flight.Context(w, r)
 
 	// Create a pagination instance with a max of 10 results.
@@ -114,9 +139,12 @@ func Show(w http.ResponseWriter, r *http.Request) {
 
 	//decrypt
 	//json
+	//TODO
 	for idx := range forms {
 		if c.Param("id") == strconv.FormatUint(uint64(forms[idx].ID), 10) {
 			forms[idx].StatusID = 1
+			forms[idx].Fields = GetFields(w, r)
+			forms[idx].FieldTypes = GetFieldTypes(w, r)
 		} else {
 			forms[idx].StatusID = 0
 		}

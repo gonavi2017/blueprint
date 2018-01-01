@@ -1,28 +1,63 @@
-
 {{define "form"}}
-	<div class="row">
-			<ul class="nav nav-tabs">
-				{{range $n := .forms}}
-					{{if .StatusID}}
-						<li class = "active">
-					{{else}}
-						<li>
-					{{end}}
-					<a href="{{$.BaseURI}}form/view/{{.ID}}">{{.Name}}</a>
-					</li>
-				{{end}}
-			</ul>
-			<div class="col-md-12 col-sm-12 col-lg-12">
-				{{range $n := .forms}}
-					{{if .StatusID}}
-						{{if eq .ID 1}}
-							{{template "financial"}}
+<div>
+	<nav class="navsubbar navbar-default navbar-static-top">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navsubbar" aria-expanded="false" aria-controls="navsubbar">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="{{.BaseURI}}">Records</a>
+			</div>
+			<div id="navsubbar" class="navbar-collapse collapse">
+				<ul class="nav navbar-nav navbar-right">
+					{{range $n := .forms}}
+						{{if .StatusID}}
+							<li class = "active">
+						{{else}}
+							<li>
 						{{end}}
-						{{if eq .ID 2}}
-							{{template "marriage"}}
+						{{if eq $.AuthLevel "auth"}}
+							<a href="{{$.BaseURI}}form/view/{{.ID}}">{{.Name}}</a>
+						{{else}}
+							<a href="">{{.Name}}</a>
 						{{end}}
+							</li>
 					{{end}}
-				{{end}}
-				</div>
+				</ul>
+			</div>
 		</div>
+	</nav>
+	{{if eq $.AuthLevel "auth"}}
+		{{ $Forms := .forms }}
+		{{range $form := $Forms}}
+			{{ $Fields := .Fields }}
+			{{ $FieldTypes := .FieldTypes }}
+			{{if .StatusID}}
+				<form method="post">
+					{{range $field := $Fields}}
+						<p> {{$form.ID}} </p>
+						<p> {{$field.FormID}} </p>
+						{{if eq $form.ID $field.FormID}}  
+							<div class="form-group">
+								<label for={{$field.ID}}>{{$field.Description}}</label>
+								<div><input {{TEXT $field.ID "" .}} type="text" class="form-control" id="{{$field.ID}}" maxlength="48" placeholder="{{$field.Description}}" /></div>
+							</div>
+							<p> {{$field.Name}}  </p>
+							<p> {{$field.FieldTypeID}}  </p>
+						{{end}}
+						{{range $fieldType := $FieldTypes}}
+							<p> {{$fieldType.ID}}  </p>
+							<p> {{$fieldType.Name}}  </p>
+						{{end}}
+					{{end}}
+					<input type="submit" value="Create Account" class="btn btn-primary" />
+					<input type="hidden" name="_token" value="{{$.token}}">
+					<input type="hidden" name="_method" value="POST">
+				</form>
+			{{end}}
+		{{end}}
+	{{end}}
+</div>
 {{end}}
