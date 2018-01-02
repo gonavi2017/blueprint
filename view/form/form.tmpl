@@ -30,6 +30,7 @@
 		</div>
 	</nav>
 	{{if eq $.AuthLevel "auth"}}
+		{{ $Global := . }}
 		{{ $Forms := .forms }}
 		{{range $form := $Forms}}
 			{{ $Fields := .Fields }}
@@ -37,22 +38,71 @@
 			{{if .StatusID}}
 				<form method="post">
 					{{range $field := $Fields}}
-						<p> {{$form.ID}} </p>
-						<p> {{$field.FormID}} </p>
 						{{if eq $form.ID $field.FormID}}  
-							<div class="form-group">
-								<label for={{$field.ID}}>{{$field.Description}}</label>
-								<div><input {{TEXT $field.ID "" .}} type="text" class="form-control" id="{{$field.ID}}" maxlength="48" placeholder="{{$field.Description}}" /></div>
-							</div>
-							<p> {{$field.Name}}  </p>
-							<p> {{$field.FieldTypeID}}  </p>
-						{{end}}
-						{{range $fieldType := $FieldTypes}}
-							<p> {{$fieldType.ID}}  </p>
-							<p> {{$fieldType.Name}}  </p>
+							{{if eq $field.FieldTypeID 1}}
+								<div class="form-group">
+									<label for="{{$field.Name}}">{{$field.Description}}</label>
+									<div><input {{TEXT $field.Name "" $Global}} type="text" class="form-control" 
+									id="{{$field.Name}}" maxlength="48" placeholder="{{$field.Description}}" /></div>
+								</div>
+							{{end}}
+							{{if eq $field.FieldTypeID 2}}
+								<div class="form-group">
+									<label for="{{$field.Name}}">{{$field.Description}}</label>
+									<div><textarea rows="5" class="form-control" id="{{$field.Name}}" 
+									name="{{$field.Name}}" placeholder="{{$field.Description}}..." />
+									{{TEXTAREA $field.Name "" $Global}}</textarea></div>
+								</div>
+							{{end}}
+							{{if eq $field.FieldTypeID 3}}
+								<div class="form-group">
+								<label><input {{CHECKBOX $field.Name $field.Description $field.Name $Global}}> {{$field.Description}}</label>
+								</div>
+							{{end}}
+							{{if eq $field.FieldTypeID 4}}
+								<div class="form-group">
+									<label><input {{RADIO $field.Name $field.Description $field.Name $Global}}> {{$field.Description}}</label>
+								</div>
+							{{end}}
+							{{if eq $field.FieldTypeID 5}}
+									{{if eq $field.Name  $field.Description}}
+										<div class="form-group">
+										<label for="{{$field.Name}}">{{$field.Description}}</label>
+										<div>
+										<select name="{{$field.Name}}">
+									{{else}}
+										{{if eq $field.Description  ""}}
+											</select>
+											</div>
+											</div>
+										{{else}}
+											<option {{OPTION $field.Name $field.Description $field.Name $Global}}>{{$field.Description}}</option>
+										{{end}}
+									{{end}}
+							{{end}}
+							{{if eq $field.FieldTypeID 6}}
+									{{if eq $field.Name  $field.Description}}
+										<div class="form-group">
+										<label for="{{$field.Name}}">{{$field.Description}}</label>
+										<div>
+										<select multiple name="{{$field.Name}}">
+									{{else}}
+										{{if eq $field.Description  ""}}
+											</select>
+											</div>
+											</div>
+										{{else}}
+											<option {{OPTION $field.Name $field.Description $field.Name $Global}}>{{$field.Description}}</option>
+										{{end}}
+									{{end}}
+							{{end}}
+							{{if eq $field.FieldTypeID 7}}
+								<div class="form-group">
+									<input type="submit" value={{$field.Description}} class="btn btn-primary" />
+								</div>
+							{{end}}
 						{{end}}
 					{{end}}
-					<input type="submit" value="Create Account" class="btn btn-primary" />
 					<input type="hidden" name="_token" value="{{$.token}}">
 					<input type="hidden" name="_method" value="POST">
 				</form>

@@ -140,8 +140,10 @@ func Show(w http.ResponseWriter, r *http.Request) {
 	//decrypt
 	//json
 	//TODO
+	formID := 0
 	for idx := range forms {
 		if c.Param("id") == strconv.FormatUint(uint64(forms[idx].ID), 10) {
+			formID = idx
 			forms[idx].StatusID = 1
 			forms[idx].Fields = GetFields(w, r)
 			forms[idx].FieldTypes = GetFieldTypes(w, r)
@@ -151,6 +153,10 @@ func Show(w http.ResponseWriter, r *http.Request) {
 	}
 	v := c.View.New("form/index")
 	v.Vars["forms"] = forms
+	//add fields to the form
+	for fld := range forms[formID].Fields {
+		v.Vars[forms[formID].Fields[fld].Name] = ""
+	}
 	v.Vars["pagination"] = p
 	v.Render(w, r)
 

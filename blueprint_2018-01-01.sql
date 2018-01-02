@@ -7,7 +7,7 @@
 #
 # Host: 127.0.0.1 (MySQL 5.7.20)
 # Database: blueprint
-# Generation Time: 2017-12-26 16:58:28 +0000
+# Generation Time: 2018-01-02 02:44:21 +0000
 # ************************************************************
 
 
@@ -50,12 +50,63 @@ VALUES
 UNLOCK TABLES;
 
 
-# Dump of table form
+# Dump of table field
 # ------------------------------------------------------------
 
-DROP TABLE IF EXISTS `form`;
+DROP TABLE IF EXISTS `field`;
 
-CREATE TABLE `form` (
+CREATE TABLE `field` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `line` int(10) unsigned NOT NULL,
+  `name` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `description` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `form_id` int(10) unsigned NOT NULL,
+  `field_type_id` int(10) unsigned NOT NULL,
+  `status_id` int(10) unsigned NOT NULL DEFAULT '1',
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_field_type_id` (`field_type_id`),
+  KEY `fk_field_status_id` (`status_id`),
+  KEY `fk_field_form_id` (`form_id`),
+  CONSTRAINT `fk_field_form_id` FOREIGN KEY (`form_id`) REFERENCES `form` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_field_status_id` FOREIGN KEY (`status_id`) REFERENCES `status` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_field_type_id` FOREIGN KEY (`field_type_id`) REFERENCES `field_type` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+LOCK TABLES `field` WRITE;
+/*!40000 ALTER TABLE `field` DISABLE KEYS */;
+
+INSERT INTO `field` (`id`, `line`, `name`, `description`, `form_id`, `field_type_id`, `status_id`, `created_at`, `updated_at`, `deleted_at`)
+VALUES
+	(1,1,'MarriageDetails','Marriage Details',2,1,1,'2017-12-27 07:30:30','2017-12-28 12:21:22',NULL),
+	(2,2,'MarriageMenu','Marriage Menu',2,2,1,'2017-12-27 07:30:30','2018-01-01 19:40:32',NULL),
+	(3,3,'LegalMarriage','Legal Marriage',2,3,1,'2017-12-27 07:30:30','2018-01-01 19:40:32',NULL),
+	(4,4,'MarriageParty','Groom',2,4,1,'2017-12-27 07:30:30','2018-01-01 20:52:10',NULL),
+	(5,4,'MarriageParty','Bride',2,4,1,'2017-12-27 07:30:30','2018-01-01 20:52:17',NULL),
+	(6,5,'MarriageVenue','MarriageVenue',2,5,1,'2017-12-27 07:30:30','2018-01-01 21:05:09',NULL),
+	(7,5,'MarriageVenue','Newyork',2,5,1,'2017-12-27 07:30:30','2018-01-01 21:05:37',NULL),
+	(8,5,'MarriageVenue','London',2,5,1,'2017-12-27 07:30:30','2018-01-01 21:05:44',NULL),
+	(9,5,'MarriageVenue','Tokyo',2,5,1,'2017-12-27 07:30:30','2018-01-01 21:05:54',NULL),
+	(10,5,'MarriageVenue','',2,5,1,'2017-12-27 07:30:30','2018-01-01 21:30:08',NULL),
+	(11,6,'MarriageMenu','MarriageMenu',2,6,1,'2017-12-27 07:30:30','2018-01-01 21:05:09',NULL),
+	(12,6,'MarriageMenu','Veg',2,6,1,'2017-12-27 07:30:30','2018-01-01 21:05:37',NULL),
+	(13,6,'MarriageMenu','NonVeg',2,6,1,'2017-12-27 07:30:30','2018-01-01 21:05:44',NULL),
+	(14,6,'MarriageMenu','Vegan',2,6,1,'2017-12-27 07:30:30','2018-01-01 21:05:54',NULL),
+	(15,6,'MarriageMenu','',2,6,1,'2017-12-27 07:30:30','2018-01-01 21:30:13',NULL),
+	(16,7,'CreateAccount ','Create Account',2,7,1,'2017-12-27 07:30:30','2018-01-01 21:40:41',NULL);
+
+/*!40000 ALTER TABLE `field` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+# Dump of table field_type
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `field_type`;
+
+CREATE TABLE `field_type` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   `description` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
@@ -64,19 +115,24 @@ CREATE TABLE `form` (
   `updated_at` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `fk_form_status` (`status_id`),
-  CONSTRAINT `fk_form_status` FOREIGN KEY (`status_id`) REFERENCES `status` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  KEY `fk_field_type_status_id` (`status_id`),
+  CONSTRAINT `fk_field_type_status_id` FOREIGN KEY (`status_id`) REFERENCES `status` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-LOCK TABLES `form` WRITE;
-/*!40000 ALTER TABLE `form` DISABLE KEYS */;
+LOCK TABLES `field_type` WRITE;
+/*!40000 ALTER TABLE `field_type` DISABLE KEYS */;
 
-INSERT INTO `form` (`id`, `name`, `description`, `status_id`, `created_at`, `updated_at`, `deleted_at`)
+INSERT INTO `field_type` (`id`, `name`, `description`, `status_id`, `created_at`, `updated_at`, `deleted_at`)
 VALUES
-	(1,'Financial','These',1,'2017-12-25 20:34:57','2017-12-25 20:54:51',NULL),
-	(2,'Marriage','These',1,'2017-12-25 20:35:16','2017-12-25 20:54:57',NULL);
+	(1,'TEXT','',1,'2017-12-27 07:19:11','2017-12-29 04:13:43',NULL),
+	(2,'TEXTAREA','',1,'2017-12-27 07:19:11','2017-12-29 04:13:51',NULL),
+	(3,'CHECKBOX','',1,'2017-12-27 07:19:11','2017-12-29 04:13:59',NULL),
+	(4,'RADIO','',1,'2017-12-27 07:19:11','2017-12-29 04:14:07',NULL),
+	(5,'OPTION','',1,'2017-12-27 07:20:24','2017-12-29 04:14:16',NULL),
+	(6,'MOPTION','',1,'2018-01-01 21:06:09','2018-01-01 21:11:44',NULL),
+	(7,'SUBMIT','',1,'2018-01-01 21:06:09','2018-01-01 21:11:44',NULL);
 
-/*!40000 ALTER TABLE `form` ENABLE KEYS */;
+/*!40000 ALTER TABLE `field_type` ENABLE KEYS */;
 UNLOCK TABLES;
 
 
@@ -94,10 +150,20 @@ CREATE TABLE `form` (
   `updated_at` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `fk_form_status` (`status_id`),
-  CONSTRAINT `form_ibfk_1` FOREIGN KEY (`status_id`) REFERENCES `status` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  KEY `fk_form_status_id` (`status_id`),
+  CONSTRAINT `fk_form_status_id` FOREIGN KEY (`status_id`) REFERENCES `status` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+LOCK TABLES `form` WRITE;
+/*!40000 ALTER TABLE `form` DISABLE KEYS */;
+
+INSERT INTO `form` (`id`, `name`, `description`, `status_id`, `created_at`, `updated_at`, `deleted_at`)
+VALUES
+	(1,'Financial','These',1,'2017-12-25 20:34:57','2017-12-25 20:54:51',NULL),
+	(2,'Marriage','These',1,'2017-12-25 20:35:16','2017-12-27 17:48:59',NULL);
+
+/*!40000 ALTER TABLE `form` ENABLE KEYS */;
+UNLOCK TABLES;
 
 
 # Dump of table lot
@@ -162,6 +228,32 @@ VALUES
 UNLOCK TABLES;
 
 
+# Dump of table status
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `status`;
+
+CREATE TABLE `status` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `status` varchar(25) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+LOCK TABLES `status` WRITE;
+/*!40000 ALTER TABLE `status` DISABLE KEYS */;
+
+INSERT INTO `status` (`id`, `status`, `created_at`, `updated_at`, `deleted_at`)
+VALUES
+	(1,'active','2017-10-21 21:23:37',NULL,NULL),
+	(2,'inactive','2017-10-21 21:23:37',NULL,NULL);
+
+/*!40000 ALTER TABLE `status` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
 # Dump of table user
 # ------------------------------------------------------------
 
@@ -191,32 +283,6 @@ VALUES
 	(1,'go','navi2017','gonavi2017@gmail.com','$2a$10$g0Yeq4Wkk9F2ixoXvvVNIODf6MoJWqYX4atyID1hEcag3ScnwJRju',1,'2017-10-21 21:48:03',NULL,NULL);
 
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
-UNLOCK TABLES;
-
-
-# Dump of table status
-# ------------------------------------------------------------
-
-DROP TABLE IF EXISTS `status`;
-
-CREATE TABLE `status` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `status` varchar(25) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
-  `deleted_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-LOCK TABLES `status` WRITE;
-/*!40000 ALTER TABLE `status` DISABLE KEYS */;
-
-INSERT INTO `status` (`id`, `status`, `created_at`, `updated_at`, `deleted_at`)
-VALUES
-	(1,'active','2017-10-21 21:23:37',NULL,NULL),
-	(2,'inactive','2017-10-21 21:23:37',NULL,NULL);
-
-/*!40000 ALTER TABLE `status` ENABLE KEYS */;
 UNLOCK TABLES;
 
 

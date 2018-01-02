@@ -26,9 +26,10 @@ func Index(w http.ResponseWriter, r *http.Request) {
 	}
 	forms, p := form.GetForms(w, r)
 
-	//TODO
+	formID := 0
 	for idx := range forms {
 		if c.Param("id") == strconv.FormatUint(uint64(forms[idx].ID), 10) {
+			formID = idx
 			forms[idx].StatusID = 1
 			forms[idx].Fields = form.GetFields(w, r)
 			forms[idx].FieldTypes = form.GetFieldTypes(w, r)
@@ -37,6 +38,10 @@ func Index(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 	v.Vars["forms"] = forms
+	//add fields to the form
+	for fld := range forms[formID].Fields {
+		v.Vars[forms[formID].Fields[fld].Name] = ""
+	}
 	v.Vars["pagination"] = p
 	v.Render(w, r)
 }
