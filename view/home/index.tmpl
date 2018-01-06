@@ -5,9 +5,14 @@
 
 		<div class="page-header">
 			<h1>Hello, {{.first_name}}</h1>
+			<p>Manage your records, click on the form to access and edit it 
 		</div>
-		<p>You have arrived. Click {{LINK "block" "here"}} to view your blocks.</p>
-		{{template "form" .}}
+		<div class="row">
+			<div class="col-md-12 col-lg-12 sm-12">
+				<!-- Click {{LINK "block" "here"}} to view your blocks. -->
+				{{template "form" .}}
+			</div>
+		</div>
 	{{else}}
 
 		<div class="page-header">

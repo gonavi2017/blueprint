@@ -45,3 +45,7 @@ body,h1,h2,h3,h4,h5,h6{font-family:"Open Sans",Helvetica,Arial,sans-serif}.page-
     line-height: 1.42;
     border-radius: 20px;
   }  
+
+  .page-header h1{
+    color:#3b5998;
+  }
