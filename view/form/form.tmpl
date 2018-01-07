@@ -1,11 +1,16 @@
 {{define "form"}}
 <div>
-	<nav class="navsubbar indigo">
+	<nav class="navbar navbar-inverse navbar-static-top">
 		<div class="container-fluid">
 			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navsubbar" aria-expanded="false" aria-controls="navsubbar">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
 				<a class="navbar-brand" href="{{.BaseURI}}">Records</a>
 			</div>
-			
+			<div id="navsubbar" class="navbar-collapse collapse">
 				<ul class="nav navbar-nav navbar-right">
 					{{range $n := .forms}}
 						{{if .StatusID}}
@@ -21,7 +26,7 @@
 							</li>
 					{{end}}
 				</ul>
-			
+			</div>
 		</div>
 	</nav>
 	{{if eq $.AuthLevel "auth"}}
