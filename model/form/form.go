@@ -15,44 +15,6 @@ var (
 	table = "form"
 )
 
-//ElementType is the HTML type on the form
-type ElementType int
-
-const (
-	//Legend defines
-	Legend = ElementType(iota)
-	//ButtonDouble defines
-	ButtonDouble
-	//Button defines
-	Button
-	//FileButton defines
-	FileButton
-	//SelectMultiple defines
-	SelectMultiple
-	//SelectBasic defines
-	SelectBasic
-	//MultipleCheckboxesInLine defines
-	MultipleCheckboxesInLine
-	//MultipleCheckboxes defines
-	MultipleCheckboxes
-	//MultipleRadiosInLine defines
-	MultipleRadiosInLine
-	//MultipleRadios defines
-	MultipleRadios
-	//TextArea defines
-	TextArea
-	//PrependedCheckbox defines
-	PrependedCheckbox
-	//ButtonDropDown defines
-	ButtonDropDown
-	//PasswordInput defines
-	PasswordInput
-	//SearchInput defines
-	SearchInput
-	//TextInput defines
-	TextInput
-)
-
 // Item defines the model.
 type Item struct {
 	ID          uint32         `db:"id"`

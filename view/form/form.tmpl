@@ -43,14 +43,14 @@
 								<div class="form-group">
 									<label for="{{$field.Name}}">{{$field.Description}}</label>
 									<div><input {{TEXT $field.Name "" $Global}} type="text" class="form-control" 
-									id="{{$field.Name}}" maxlength="48" placeholder="{{$field.Description}}" /></div>
+									id="{{$field.Name}}" maxlength="48" placeholder="{{$field.Placeholder}}" /></div>
 								</div>
 							{{end}}
 							{{if eq $field.FieldTypeID 2}}
 								<div class="form-group">
 									<label for="{{$field.Name}}">{{$field.Description}}</label>
 									<div><textarea rows="5" class="form-control" id="{{$field.Name}}" 
-									name="{{$field.Name}}" placeholder="{{$field.Description}}..." />
+									name="{{$field.Name}}" placeholder="{{$field.Placeholder}}..." />
 									{{TEXTAREA $field.Name "" $Global}}</textarea></div>
 								</div>
 							{{end}}
@@ -104,96 +104,96 @@
 								<div class="form-group">
 									<label for="{{$field.Name}}">{{$field.Description}}</label>
 									<div><input {{TEXT $field.Name "" $Global}} type="color" class="form-control" 
-									id="{{$field.Name}}" placeholder="{{$field.Description}}" /></div>
+									id="{{$field.Name}}" placeholder="{{$field.Placeholder}}" /></div>
 								</div>
 							{{end}}
 							{{if eq $field.FieldTypeID 10}}
 								<div class="form-group">
 									<label for="{{$field.Name}}">{{$field.Description}}</label>
 									<div><input {{TEXT $field.Name "" $Global}} type="date" class="form-control" 
-									id="{{$field.Name}}" placeholder="{{$field.Description}}" /></div>
+									id="{{$field.Name}}" placeholder="{{$field.Placeholder}}" /></div>
 								</div>
 							{{end}}
 							{{if eq $field.FieldTypeID 11}}
 								<div class="form-group">
 									<label for="{{$field.Name}}">{{$field.Description}}</label>
 									<div><input {{TEXT $field.Name "" $Global}} type="datetime-local" class="form-control" 
-									id="{{$field.Name}}" placeholder="{{$field.Description}}" /></div>
+									id="{{$field.Name}}" placeholder="{{$field.Placeholder}}" /></div>
 								</div>
 							{{end}}
 							{{if eq $field.FieldTypeID 12}}
 								<div class="form-group">
 									<label for="{{$field.Name}}">{{$field.Description}}</label>
 									<div><input {{TEXT $field.Name "" $Global}} type="email" class="form-control" 
-									id="{{$field.Name}}" placeholder="{{$field.Description}}" /></div>
+									id="{{$field.Name}}" placeholder="{{$field.Placeholder}}" /></div>
 								</div>
 							{{end}}
 							{{if eq $field.FieldTypeID 13}}
 								<div class="form-group">
 									<label for="{{$field.Name}}">{{$field.Description}}</label>
 									<div><input {{TEXT $field.Name "" $Global}} type="file" class="form-control" 
-									id="{{$field.Name}}" placeholder="{{$field.Description}}" /></div>
+									id="{{$field.Name}}" placeholder="{{$field.Placeholder}}" /></div>
 								</div>
 							{{end}}
 							{{if eq $field.FieldTypeID 14}}
 								<div class="form-group">
 									<label for="{{$field.Name}}">{{$field.Description}}</label>
 									<div><input {{TEXT $field.Name "" $Global}} type="month" class="form-control" 
-									id="{{$field.Name}}" placeholder="{{$field.Description}}" /></div>
+									id="{{$field.Name}}" placeholder="{{$field.Placeholder}}" /></div>
 								</div>
 							{{end}}
 							{{if eq $field.FieldTypeID 15}}
 								<div class="form-group">
 									<label for="{{$field.Name}}">{{$field.Description}}</label>
 									<div><input {{TEXT $field.Name "" $Global}} type="number" class="form-control" 
-									id="{{$field.Name}}" min="0" max="10" placeholder="{{$field.Description}}" /></div>
+									id="{{$field.Name}}" min="0" max="10" placeholder="{{$field.Placeholder}}" /></div>
 								</div>
 							{{end}}
 							{{if eq $field.FieldTypeID 16}}
 								<div class="form-group">
 									<label for="{{$field.Name}}">{{$field.Description}}</label>
 									<div><input {{TEXT $field.Name "" $Global}} type="range" class="form-control" 
-									id="{{$field.Name}}" min="0" max="10" step="5" placeholder="{{$field.Description}}" /></div>
+									id="{{$field.Name}}" min="0" max="10" step="5" placeholder="{{$field.Placeholder}}" /></div>
 								</div>
 							{{end}}
 							{{if eq $field.FieldTypeID 17}}
 								<div class="form-group">
 									<label for="{{$field.Name}}">{{$field.Description}}</label>
 									<div><input {{TEXT $field.Name "" $Global}} type="search" class="form-control" 
-									id="{{$field.Name}}" maxlength="48" placeholder="{{$field.Description}}" /></div>
+									id="{{$field.Name}}" maxlength="48" placeholder="{{$field.Placeholder}}" /></div>
 								</div>
 							{{end}}
 							{{if eq $field.FieldTypeID 18}}
 								<div class="form-group">
 									<label for="{{$field.Name}}">{{$field.Description}}</label>
 									<div><input {{TEXT $field.Name "" $Global}} type="tel" class="form-control" 
-									id="{{$field.Name}}" placeholder="{{$field.Description}}" /></div>
+									id="{{$field.Name}}" placeholder="{{$field.Placeholder}}" /></div>
 								</div>
 							{{end}}
 							{{if eq $field.FieldTypeID 19}}
 								<div class="form-group">
 									<label for="{{$field.Name}}">{{$field.Description}}</label>
 									<div><input {{TEXT $field.Name "" $Global}} type="url" class="form-control" 
-									id="{{$field.Name}}" placeholder="{{$field.Description}}" /></div>
+									id="{{$field.Name}}" placeholder="{{$field.Placeholder}}" /></div>
 								</div>
 							{{end}}
 							{{if eq $field.FieldTypeID 20}}
 								<div class="form-group">
 									<label for="{{$field.Name}}">{{$field.Description}}</label>
 									<div><input {{TEXT $field.Name "" $Global}} type="week" class="form-control" 
-									id="{{$field.Name}}" placeholder="{{$field.Description}}" /></div>
+									id="{{$field.Name}}" placeholder="{{$field.Placeholder}}" /></div>
 								</div>
 							{{end}}
 							{{if eq $field.FieldTypeID 21}}
 								<div class="form-group">
 									<div><input {{TEXT $field.Name "" $Global}} type="reset" class="form-control" 
-									id="{{$field.Name}}" placeholder="{{$field.Description}}" /></div>
+									id="{{$field.Name}}" placeholder="{{$field.Placeholder}}" /></div>
 								</div>
 							{{end}}
 							{{if eq $field.FieldTypeID 22}}
 								<div class="form-group">
 									<div><input {{TEXT $field.Name "" $Global}} type="hidden" class="form-control" 
-									id="{{$field.Name}}" value="{{$field.Description}}" /></div>
+									id="{{$field.Name}}" value="{{$field.Placeholder}}" /></div>
 								</div>
 							{{end}}
 							{{if eq $field.FieldTypeID 23}}
@@ -206,14 +206,14 @@
 								<div class="form-group">
 									<label for="{{$field.Name}}">{{$field.Description}}</label>
 									<div><input {{TEXT $field.Name "" $Global}} type="image" class="form-control" 
-									src="{{$field.Name}}" alt="{{$field.Description}}" /></div>
+									src="{{$field.Name}}" alt="{{$field.Placeholder}}" /></div>
 								</div>
 							{{end}}
 							{{if eq $field.FieldTypeID 25}}
 								<div class="form-group">
 									<label for="{{$field.Name}}">{{$field.Description}}</label>
 									<div><input {{TEXT $field.Name "" $Global}} type="time" class="form-control" 
-									id="{{$field.Name}}" placeholder="{{$field.Description}}" /></div>
+									id="{{$field.Name}}" placeholder="{{$field.Placeholder}}" /></div>
 								</div>
 							{{end}}
 						{{end}}
