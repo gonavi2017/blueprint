@@ -21,6 +21,7 @@ type Item struct {
 	Description string         `db:"description"`
 	Placeholder string         `db:"placeholder"`
 	Required    bool           `db:"required"`
+	MaxLength   uint32         `db:"max_length"`
 	FormID      uint32         `db:"form_id"`
 	FieldTypeID uint32         `db:"field_type_id"`
 	StatusID    uint8          `db:"status_id"`
@@ -40,7 +41,7 @@ type Connection interface {
 func All(db Connection) ([]Item, bool, error) {
 	var result []Item
 	err := db.Select(&result, fmt.Sprintf(`
-		SELECT id, line, name, description, placeholder, required, form_id, field_type_id, status_id
+		SELECT id, line, name, description, placeholder, required, max_length, form_id, field_type_id, status_id
 		FROM %v
 		WHERE deleted_at IS NULL order by form_id, line`, table))
 	return result, err == sql.ErrNoRows, err

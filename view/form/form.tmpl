@@ -43,13 +43,13 @@
 								<div class="form-group">
 									<label for="{{$field.Name}}">{{$field.Description}}</label>
 									<div><input {{TEXT $field.Name "" $Global}} type="text" class="form-control" 
-									id="{{$field.Name}}" maxlength="48" placeholder="{{$field.Placeholder}}" /></div>
+									id="{{$field.Name}}" maxlength="{{$field.MaxLength}}" placeholder="{{$field.Placeholder}}" /></div>
 								</div>
 							{{end}}
 							{{if eq $field.FieldTypeID 2}}
 								<div class="form-group">
 									<label for="{{$field.Name}}">{{$field.Description}}</label>
-									<div><textarea rows="5" class="form-control" id="{{$field.Name}}" 
+									<div><textarea rows="{{$field.MaxLength}}" class="form-control" id="{{$field.Name}}" 
 									name="{{$field.Name}}" placeholder="{{$field.Placeholder}}..." />
 									{{TEXTAREA $field.Name "" $Global}}</textarea></div>
 								</div>
@@ -160,7 +160,7 @@
 								<div class="form-group">
 									<label for="{{$field.Name}}">{{$field.Description}}</label>
 									<div><input {{TEXT $field.Name "" $Global}} type="search" class="form-control" 
-									id="{{$field.Name}}" maxlength="48" placeholder="{{$field.Placeholder}}" /></div>
+									id="{{$field.Name}}" maxlength="{{$field.MaxLength}}" placeholder="{{$field.Placeholder}}" /></div>
 								</div>
 							{{end}}
 							{{if eq $field.FieldTypeID 18}}
@@ -186,8 +186,9 @@
 							{{end}}
 							{{if eq $field.FieldTypeID 21}}
 								<div class="form-group">
-									<div><input {{TEXT $field.Name "" $Global}} type="reset" class="form-control" 
-									id="{{$field.Name}}" placeholder="{{$field.Placeholder}}" /></div>
+									<div class="form-group">
+										<input type="reset" value={{$field.Description}} class="btn btn-default" />
+									</div>
 								</div>
 							{{end}}
 							{{if eq $field.FieldTypeID 22}}
