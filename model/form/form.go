@@ -35,6 +35,34 @@ type Connection interface {
 	Select(dest interface{}, query string, args ...interface{}) error
 }
 
+// GetFieldTypes displays the items.
+func GetFieldTypes(db Connection) ([]field_type.Item, error) {
+	fieldTypes, _, err := field_type.All(db)
+	if err != nil {
+		fieldTypes = []field_type.Item{}
+	}
+	return fieldTypes, err
+}
+
+// GetFields displays the items.
+func GetFields(db Connection) ([]field.Item, error) {
+	fields, _, err := field.All(db)
+	if err != nil {
+		fields = []field.Item{}
+	}
+	return fields, err
+}
+
+// GetForms displays the items.
+func GetForms(db Connection) ([]Item, error) {
+
+	forms, _, err := ByDescriptionPaginate(db, "These")
+	if err != nil {
+		forms = []Item{}
+	}
+	return forms, err
+}
+
 // ByDescription gets form information from description.
 func ByDescription(db Connection, description string) ([]Item, bool, error) {
 	var result []Item
@@ -48,16 +76,15 @@ func ByDescription(db Connection, description string) ([]Item, bool, error) {
 	return result, err == sql.ErrNoRows, err
 }
 
-// ByDescriptionPaginate gets items for a user based on page and max variables.
-func ByDescriptionPaginate(db Connection, description string, max int, page int) ([]Item, bool, error) {
+// ByDescriptionPaginate gets items
+func ByDescriptionPaginate(db Connection, description string) ([]Item, bool, error) {
 	var result []Item
 	err := db.Select(&result, fmt.Sprintf(`
 		SELECT id, name, description, status_id, updated_at, deleted_at
 		FROM %v
 		WHERE  description = ?
 			AND deleted_at IS NULL
-		LIMIT %v OFFSET %v
-		`, table, max, page),
+		`, table),
 		description)
 	return result, err == sql.ErrNoRows, err
 }
